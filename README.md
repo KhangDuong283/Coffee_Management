@@ -1,12 +1,12 @@
 # Niên luận Cơ sở/Chuyên ngành CTXXX
 
-**Học kỳ**: X, **Năm học**: 20XX-20XX
+**Học kỳ**: 2, **Năm học**: 2023-2024
 
-**MSSV**: X
+**MSSV**: B2111802
 
-**Họ tên**: X
+**Họ tên**: Dương Lập Khang
 
-**Tên đề tài**: X
+**Tên đề tài**: Hệ thống quản lý quán cà phê
 
 ---
 
