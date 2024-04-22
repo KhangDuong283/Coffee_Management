@@ -1,0 +1,105 @@
+.left-section{
+    background: #fff;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 200vh;
+    padding: 25px 10px;
+    transition: all 0.3s ease;
+}
+
+.left-section h2{
+    color: #364670;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.left-section .sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.left-section .sidebar .item,
+.left-section .sign-out{
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    justify-content: start;
+    gap: 6px;
+    color: #364670;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-left: 2rem;
+}
+
+.left-section .sidebar .item.active h3,
+.left-section .sidebar .item.active i,
+.left-section .sidebar .item:hover,
+.left-section .sign-out:hover{
+    color: #1976d2;
+}
+
+.left-section .sidebar .item h3,
+.left-section .sign-out h3{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.left-section .sidebar .item i,
+.left-section .sign-out i{
+    font-size: 22px;
+}
+
+@media screen and (max-width: 1230px) {
+    .left-section{
+        width: 90px;
+    }
+
+    .left-section h2{
+        font-size: 17px;
+    }
+
+    .left-section .sidebar .item{
+        justify-content: center;
+        margin: auto;
+    }
+
+    .left-section .sidebar .item h3,
+    .left-section .sign-out h3{
+        display: none;
+    }
+
+    .left-section .sidebar .item i,
+    .left-section .sign-out i{
+        font-size: 26px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .left-section{
+        position: absolute;
+        width: 160px;
+        left: -160px;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .left-section .sidebar .item{
+        justify-content: start;
+    }
+
+    .left-section .sidebar .item h3,
+    .left-section .sign-out h3{
+        display: block;
+    }
+
+    .left-section .sidebar .item i,
+    .left-section .sign-out i{
+        font-size: 22px;
+    }
+
+}

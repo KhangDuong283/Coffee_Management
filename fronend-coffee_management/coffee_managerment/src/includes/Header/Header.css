@@ -1,0 +1,198 @@
+.main .header {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.main .header .select {
+  background: #fff;
+  width: 25%;
+  padding: 8px 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(136, 148, 171, 0.2),
+    0 24px 20px -24px rgba(71, 82, 107, 0.1);
+}
+
+.main .header .language {
+  background: #fff;
+  width: 15%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(136, 148, 171, 0.2),
+    0 24px 20px -24px rgba(71, 82, 107, 0.1);
+}
+
+.main .header .language img {
+  width: 18px;
+  height: 32px;
+  display: block;
+}
+
+.main .header .select button {
+  font-size: 20px;
+  border: none;
+  background: transparent;
+}
+
+.main .header .select input {
+  padding: 4px 6px;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.main .header .select i {
+  cursor: pointer;
+}
+
+.main .header .icon-btns {
+  display: none;
+  gap: 8px;
+}
+
+.main .header .icon-btns i {
+  font-size: 20px;
+  background: #1976d2;
+  padding: 8px;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.main .header .icon-btns i:hover {
+  background: #0d47a1;
+}
+
+.main .header .icon-btns i#menu-btn {
+  display: none;
+}
+
+/* Profile */
+
+.right-section .profile {
+  cursor: pointer;
+  background: #fff;
+  margin-left: auto;
+  width: 25%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 15px;
+  box-shadow: 0 2px 6px rgba(136, 148, 171, 0.2),
+    0 24px 20px -24px rgba(71, 82, 107, 0.1);
+}
+
+.right-section .profile .info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.right-section .profile .info img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.right-section .profile .info .account h5 {
+  font-size: 15px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.right-section .profile .info .account p {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 0;
+}
+
+.right-section .profile > i {
+  font-size: 24px;
+  color: #364670;
+  cursor: pointer;
+}
+
+.main .header .dropdown-menu {
+  width: 14.9rem;
+}
+
+@media screen and (max-width: 1230px) {
+  .main .header .select {
+    width: 30%;
+  }
+
+  .right-section .profile {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .main .header {
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .main .header .select {
+    width: 50%;
+    margin-top: 5rem;
+  }
+
+  .main .header .language {
+    margin-top: 5rem;
+  }
+
+  .icon-btns {
+    margin-top: 4rem;
+  }
+
+  .main .header .icon-btns,
+  .main .header .icon-btns i#menu-btn {
+    display: block;
+  }
+
+  .right-section .profile {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 94%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main .header {
+    justify-content: space-between;
+  }
+
+  .main .header .select {
+    width: 50%;
+    margin-top: 5rem;
+  }
+
+  .icon-btns {
+    margin-top: 4rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .main .header .select {
+    width: 50%;
+    margin-top: 0;
+  }
+
+  .main .header .language {
+    margin-top: 0;
+  }
+
+  .icon-btns {
+    margin-top: -1rem;
+  }
+
+  .right-section .profile {
+    width: 100%;
+  }
+}
