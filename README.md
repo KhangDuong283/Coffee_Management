@@ -1,4 +1,4 @@
-# Niên luận Cơ sở/Chuyên ngành CTXXX
+# Niên luận Cơ sở CT271
 
 **Học kỳ**: 2, **Năm học**: 2023-2024
 
