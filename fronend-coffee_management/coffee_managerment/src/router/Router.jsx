@@ -16,8 +16,8 @@ import ResetPassword from '../components/ResetPassword/ResetPassword';
 
 const router = createBrowserRouter([
     {
-        path: '/',
-        element: <Management />,
+        path: '/management',
+        element: <Login />,
         errorElement: <Error />,
         children: [
             {
@@ -48,8 +48,8 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/',
-        element: <Post />,
+        path: '/post',
+        element: <PostLogin />,
         errorElement: <Error />,
         children: [
             {
@@ -82,6 +82,11 @@ const router = createBrowserRouter([
     {
         path: '/post/post_login',
         element: <PostLogin />,
+        errorElement: <Error />
+    },
+    {
+        path: '*',
+        element: <Management />,
         errorElement: <Error />
     }
 ])

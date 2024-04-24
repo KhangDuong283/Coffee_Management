@@ -19,6 +19,8 @@ class BrancheController extends Controller
             $data = $branch->findAll();
             if (is_array($data)) {
                 echo json_encode($data);
+            } else {
+                echo json_encode(['message' => 'Branch not found']);
             }
         }
     }
@@ -31,24 +33,30 @@ class BrancheController extends Controller
         $result = $branch->insert($branch_data);
         if ($result) {
             echo json_encode(['message' => 'Branch created successfully']);
+        } else {
+            echo json_encode(['message' => 'Branch created failed']);
         }
     }
 
     public function update($branch_data = [], $id)
     {
         $branch = new Branche();
-        $result = $branch->update($branch_data, 'branch_id = ' . $id);
+        $result = $branch->update($branch_data, 'branch_id = ' . "'$id'");
         if ($result) {
             return json_encode(['message' => 'Branch updated successfully']);
+        } else {
+            return json_encode(['message' => 'Branch updated failed']);
         }
     }
 
     public function delete($id)
     {
         $branch = new Branche();
-        $result = $branch->delete('branch_id = ' . $id);
+        $result = $branch->delete('branch_id = ' . "'$id'");
         if ($result) {
             return json_encode(['message' => 'Branch deleted successfully']);
+        } else {
+            return json_encode(['message' => 'Branch deleted failed']);
         }
     }
 
