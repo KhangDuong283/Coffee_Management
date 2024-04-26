@@ -1,33 +1,57 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./Login.css"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import Validation from "./Validation"
+import { toast } from "react-toastify"
+import {  useDispatch, useSelector } from "react-redux"
+import useReadAdmin from "../Register/hooks/useReadAdmin"
+import { login } from "./AuthSlice"
 import ErrorValidate from "../ErrorValidate/ErrorValidate"
 export default function Login() {
+    // Gọi hook useReadAdmin để lấy ra danh sách admin trên hệ thống
+    const { admins } = useReadAdmin();
+    const admins_data = admins;
+
+    // Khai báo state form để lưu trữ dữ liệu người dùng nhập vào
     const [values, setValues] = useState({
-        admin__username: "",
-        admin__password: ""
+        admin_username: "",
+        admin_password: ""
     })
 
+    const navigate = useNavigate()
+
+    // Khai báo state error để lưu trữ các lỗi
     const [errors, setErrors] = useState({})
 
+    const dispatch = useDispatch();
+
     // Kiểm tra lỗi và cập nhật stateError
-    const handleLogin = (e) => {
-        e.preventDefault();
-        setErrors(Validation(values));
+    const handleLogin = (event) => {
+        event.preventDefault();
+        // Kiểm tra dữ liệu người dùng nhập vào
+        const errors = Validation(values, admins_data)
+        setErrors(errors);
+
+        if (Object.keys(errors).length > 0) return;
+
+        const action = login();
+        dispatch(action)
+
+        // Lưu trạng thái đăng nhập vào localStorage
+        localStorage.setItem('auth', 'true');
+
+
+
+        // Nếu không có lỗi thì chuyển hướng đến trang dashboard
+        toast.success("Login success")
+        navigate("/management/dashboard")
     }
 
-    const handleChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value })
+    // Hàm xử lý sự kiện khi người dùng nhập dữ liệu vào input
+    const handleChange = (event) => {
+        setValues({ ...values, [event.target.name]: event.target.value })
     }
-
-    // Môi khi mảng errors thay đổi thì thực hiện hàm này
-    useEffect(() => {
-        if (Object.keys(errors).length === 0 && (values.admin__username !== "" || values.admin__password !== "")) {
-            alert("Login successfully")
-        }
-    }, [errors])
 
     return (
         <div className="admin__login">
@@ -35,15 +59,15 @@ export default function Login() {
                 <p className="title">Admin login</p>
                 <form onSubmit={handleLogin}>
                     <div data-mdb-input-init className="form-outline mb-4">
-                        <input value={values.admin__username} onChange={handleChange} name="admin__username" type="text" id="form2Example1" className="form-control form__control" />
+                        <input value={values.admin_username} onChange={handleChange} name="admin_username" type="text" id="form2Example1" className="form-control form__control" />
                         <label className="form-label" htmlFor="form2Example1">Username</label>
-                        {ErrorValidate(errors, 'admin__username')}
+                        {ErrorValidate(errors, 'admin_username')}
                     </div>
 
                     <div data-mdb-input-init className="form-outline mb-4">
-                        <input value={values.admin__password} onChange={handleChange} name="admin__password" type="password" id="form2Example2" className="form-control form__control" />
+                        <input value={values.admin_password} onChange={handleChange} name="admin_password" type="password" id="form2Example2" className="form-control form__control" />
                         <label className="form-label" htmlFor="form2Example2">Password</label>
-                        {ErrorValidate(errors, 'admin__password')}
+                        {ErrorValidate(errors, 'admin_password')}
                     </div>
 
 

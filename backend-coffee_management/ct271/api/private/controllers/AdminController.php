@@ -31,8 +31,12 @@ class AdminController extends Controller
     public function create($admin_data = [])
     {
         $admin = new Admin();
-        $admin_data['admin_id'] = $admin->id_generator('AM', 'admin_id');
-        $result = $admin->insert($admin_data);
+
+        $data['admin_id'] = $admin->id_generator('AM', 'admin_id');
+        $data['admin_username'] = $admin_data['admin_username'];
+        $data['admin_password'] = $admin_data['admin_password'];
+
+        $result = $admin->insert($data);
         echo json_encode($result);
         if ($result == false) {
             echo json_encode(['message' => 'Admin created successfully']);
@@ -44,7 +48,10 @@ class AdminController extends Controller
     public function update($admin_data = [], $id)
     {
         $admin = new Admin();
-        $result = $admin->update($admin_data, 'admin_id = ' . "'$id'");
+        $data['admin_username'] = $admin_data['admin_username'];
+        $data['admin_password'] = $admin_data['admin_password'];
+        
+        $result = $admin->update($data, 'admin_id = ' . "'$id'");
         if ($result == '') {
             return json_encode(['message' => 'Admin updated successfully']);
         } else {

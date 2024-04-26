@@ -1,4 +1,4 @@
-.post__login {
+.register {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -6,18 +6,17 @@
   align-items: center;
 }
 
-.post__login__content .title {
+.register__content .title {
   text-align: center;
   margin: 5px;
   font-weight: bold;
   font-size: 2rem;
-  color: #ffd12c;
+  color: #3b71ca;
   margin-bottom: 2rem;
 }
 
-.post__login__content {
-  width: 500px;
-  height: 350px;
+.register__content {
+  width: 450px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 15px;
@@ -25,15 +24,15 @@
     0 24px 20px -24px rgba(71, 82, 107, 0.1);
 }
 
-.post__login__content .form-control {
+.register__content .form-control {
   border: 1px solid #e6e6e6;
 }
 
-.post__login .post__login__content input:focus ~ label {
+.register .register__content input:focus ~ label {
   top: 0 !important;
 }
 
-.post__login .post__login__content input:valid ~ label {
+.register .register__content input:valid ~ label {
   top: -30px;
   left: 0;
 }

@@ -5,7 +5,7 @@ Chỉnh sửa file httpd-vhosts.conf với nội dung như sau
 
 Với 
     + "DocumentRoot" sẽ chứa đường dẫn tới thư mục public
-    + "ServerName" chứa tên server sử dụng
+    + "ServerName" chứa tên server sử dụng (nếu đổi thì phải đổi lại ở file config.php)
 Cách lấy đường dẫn cho "DocumentRoot"
     + B1: Chuột phải vào thư mục public của project
     + B2: Chọn "copy path" hoặc "alt + shitf + c"

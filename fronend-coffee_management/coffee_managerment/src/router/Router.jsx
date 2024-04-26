@@ -1,23 +1,28 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Branch from '../pages/Management/Branch/Branch';
-import Dashboard from '../pages/Management/Dashboard/Dashboard';
-import Employee from '../pages/Management/Employee/Employee';
-import Product from '../pages/Management/Product/Product';
-import Sales from '../pages/Management/Sales/Sales';
-import Error from './../includes/Error';
-import Management from '../layouts/Management';
-import Post from '../layouts/Post';
+
+import Error from "../includes/Error";
+import Dashboard from './../pages/Management/Dashboard/Dashboard';
+import Sales from './../pages/Management/Sales/Sales';
+import Product from './../pages/Management/Product/Product';
+import Employee from './../pages/Management/Employee/Employee';
+import Branch from './../pages/Management/Branch/Branch';
+import Post from './../layouts/Post';
 import Menu from './../pages/Post/Menu/Menu';
 import Order from './../pages/Post/Order/Order';
-import Login from '../components/Login/Login';
-import Register from '../components/Register/Register';
-import PostLogin from '../components/PostLogin/PostLogin';
-import ResetPassword from '../components/ResetPassword/ResetPassword';
-
+import Login from './../components/Auth/Login/Login';
+import Register from './../components/Auth/Register/Register';
+import ResetPassword from './../components/Auth/ResetPassword/ResetPassword';
+import PostLogin from './../components/Auth/PostLogin/PostLogin';
+import Management from '../layouts/Management';
 const router = createBrowserRouter([
     {
+        path: '/',
+        element: <Management />,
+        errorElement: <Error />
+    },
+    {
         path: '/management',
-        element: <Login />,
+        element: <Management />,
         errorElement: <Error />,
         children: [
             {
@@ -49,7 +54,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/post',
-        element: <PostLogin />,
+        element: <Post />,
         errorElement: <Error />,
         children: [
             {
@@ -84,11 +89,6 @@ const router = createBrowserRouter([
         element: <PostLogin />,
         errorElement: <Error />
     },
-    {
-        path: '*',
-        element: <Management />,
-        errorElement: <Error />
-    }
 ])
 
 function Router() {

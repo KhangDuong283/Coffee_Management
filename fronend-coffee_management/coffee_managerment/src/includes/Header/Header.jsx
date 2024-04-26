@@ -1,5 +1,24 @@
 import "./Header.css";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout } from "../../components/Auth/Login/AuthSlice.js"
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
+  // const auth = useSelector(state => state.Auth)
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth');
+    dispatch(logout());
+
+    navigate("/management/admin_login")
+    toast.info("Logout success")
+  }
+
   return (
     <div className="right-section">
       <div className="header">
@@ -29,7 +48,7 @@ export default function Header() {
           <ul className="dropdown-menu dropdown-menu-end">
             <li><a className="dropdown-item" href="#1">Profile</a></li>
             <li><hr className="dropdown-divider" /></li>
-            <li><a className="dropdown-item" href="#1">Logout</a></li>
+            <li><a className="dropdown-item" href="#1" onClick={handleLogout}>Logout</a></li>
           </ul>
         </div>
 
