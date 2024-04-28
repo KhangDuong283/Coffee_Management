@@ -13,13 +13,6 @@ export default function Navbar() {
           </h3>
         </NavLink>
 
-        <NavLink className="item" to="/management/sales">
-          <i className="ri-shopping-cart-line"></i>
-          <h3>
-            Sales
-          </h3>
-        </NavLink>
-
         <NavLink className="item" to="/management/product">
           <i className="ri-drinks-2-fill"></i>
           <h3>
@@ -31,6 +24,13 @@ export default function Navbar() {
           <i className="ri-group-fill"></i>
           <h3>
             Employee
+          </h3>
+        </NavLink>
+
+        <NavLink className="item" to="/management/sales">
+          <i className="ri-shopping-cart-line"></i>
+          <h3>
+            Sales
           </h3>
         </NavLink>
 

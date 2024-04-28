@@ -4,10 +4,10 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import Validation from "./Validation"
 import { toast } from "react-toastify"
-import {  useDispatch, useSelector } from "react-redux"
 import useReadAdmin from "../Register/hooks/useReadAdmin"
-import { login } from "./AuthSlice"
 import ErrorValidate from "../ErrorValidate/ErrorValidate"
+import { useDispatch } from 'react-redux';
+import { login } from "./userSlice"
 export default function Login() {
     // Gọi hook useReadAdmin để lấy ra danh sách admin trên hệ thống
     const { admins } = useReadAdmin();
@@ -35,13 +35,15 @@ export default function Login() {
 
         if (Object.keys(errors).length > 0) return;
 
-        const action = login();
-        dispatch(action)
-
         // Lưu trạng thái đăng nhập vào localStorage
         localStorage.setItem('auth', 'true');
+        
+        // Lưu username vào localStorage
+        localStorage.setItem('username', values.admin_username);
 
 
+        // Lưu thông tin admin vào store của redux
+        dispatch(login(values))
 
         // Nếu không có lỗi thì chuyển hướng đến trang dashboard
         toast.success("Login success")

@@ -12,13 +12,13 @@ export default function PostLogin() {
                 <form>
 
                     <div data-mdb-input-init className="form-outline mb-4">
-                        <input type="text" id="form2Example1" className="form-control" />
-                        <label className="form-label" htmlFor="form2Example1">Username</label>
+                        <input name="branch_id" type="text" id="form2Example1" className="form-control" />
+                        <label className="form-label" htmlFor="form2Example1">Branch id</label>
                     </div>
 
                     <div data-mdb-input-init className="form-outline mb-4">
-                        <input type="password" id="form2Example2" className="form-control" />
-                        <label className="form-label" htmlFor="form2Example2">Password</label>
+                        <input name="branch_password" type="password" id="form2Example2" className="form-control" />
+                        <label className="form-label" htmlFor="form2Example2">Branch password</label>
                     </div>
 
 

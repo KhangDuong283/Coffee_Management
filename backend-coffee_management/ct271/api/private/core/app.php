@@ -2,6 +2,8 @@
 namespace App\Core;
 
 use App\Controllers\AdminController;
+use App\Controllers\EmployeeController;
+use App\Controllers\ProductController;
 use App\Model\Branche;
 use App\Controllers\BrancheController;
 
@@ -22,7 +24,7 @@ class App
         if (is_callable([$this, $table])) {
             $this->result = $this->$table($param);
         } else {
-            echo "Can't find the table on 'this file' !! <br>";
+            echo "Can't find the table on 'app.php' !! <br>";
         }
     }
 
@@ -33,7 +35,6 @@ class App
         // endpoint là phần sau /branches/ có thể là id hoặc "count"
         $endpoint = isset($param[0]) ? $param[0] : null;
         $id = isset($param[1]) ? $param[1] : null;
-
         switch ($method) {
             case "GET":
                 if ($endpoint == "count") {
@@ -93,33 +94,64 @@ class App
 
     private function employees($param = [])
     {
-        $empl = new BrancheController();
+        $empl = new EmployeeController();
         $method = $_SERVER['REQUEST_METHOD'];
         $endpoint = isset($param[0]) ? $param[0] : null;
         $id = isset($param[1]) ? $param[1] : null;
 
-        // switch ($method) {
-        //     case "GET":
-        //         if ($endpoint == "count") {
-        //             return $branch->count();
-        //         } elseif (isset($endpoint)) {
-        //             return $branch->read($endpoint);
-        //         } elseif (!isset($endpoint)) {
-        //             return $branch->read();
-        //         }
-        //     case "POST":
-        //         $data = json_decode(file_get_contents('php://input'), true);
-        //         return $branch->create($data);
-        //     case "PUT":
-        //         if (isset($endpoint)) {
-        //             $data = json_decode(file_get_contents('php://input'), true);
-        //             return $branch->update($data, $endpoint);
-        //         }
-        //     case "DELETE":
-        //         if (isset($endpoint)) {
-        //             return $branch->delete($endpoint);
-        //         }
-        // }
+        switch ($method) {
+            case "GET":
+                if ($endpoint == "count") {
+                    return $empl->count();
+                } elseif (isset($endpoint)) {
+                    return $empl->read($endpoint);
+                } elseif (!isset($endpoint)) {
+                    return $empl->read();
+                }
+            case "POST":
+                $data = json_decode(file_get_contents('php://input'), true);
+                return $empl->create($data);
+            case "PUT":
+                if (isset($endpoint)) {
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    return $empl->update($data, $endpoint);
+                }
+            case "DELETE":
+                if (isset($endpoint)) {
+                    return $empl->delete($endpoint);
+                }
+        }
+    }
+
+    private function products($param = [])
+    {
+        $product = new ProductController();
+        $method = $_SERVER['REQUEST_METHOD'];
+        $endpoint = isset($param[0]) ? $param[0] : null;
+        $id = isset($param[1]) ? $param[1] : null;
+
+        switch ($method) {
+            case "GET":
+                if ($endpoint == "count") {
+                    return $product->count();
+                } elseif (isset($endpoint)) {
+                    return $product->read($endpoint);
+                } elseif (!isset($endpoint)) {
+                    return $product->read();
+                }
+            case "POST":
+                $data = json_decode(file_get_contents('php://input'), true);
+                return $product->create($data);
+            case "PUT":
+                if (isset($endpoint)) {
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    return $product->update($data, $endpoint);
+                }
+            case "DELETE":
+                if (isset($endpoint)) {
+                    return $product->delete($endpoint);
+                }
+        }
     }
 
 

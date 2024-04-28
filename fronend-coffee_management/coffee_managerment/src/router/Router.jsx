@@ -16,6 +16,11 @@ import PostLogin from './../components/Auth/PostLogin/PostLogin';
 import Management from '../layouts/Management';
 import AddBranch from '../pages/Management/Branch/AddBranch';
 import EditBranch from '../pages/Management/Branch/EditBranch';
+import AddEmployee from '../pages/Management/Employee/AddEmployee';
+import EditEmployee from '../pages/Management/Employee/EditEmployee';
+import ProductAddForm from '../components/Product/ProductAddForm/ProductAddForm';
+import AddProduct from '../pages/Management/Product/AddProduct';
+import EditProduct from '../pages/Management/Product/EditProduct';
 
 
 const router = createBrowserRouter([
@@ -40,16 +45,6 @@ const router = createBrowserRouter([
                 errorElement: <Error />,
             },
             {
-                path: '/management/product',
-                element: <Product />,
-                errorElement: <Error />,
-            },
-            {
-                path: '/management/employee',
-                element: <Employee />,
-                errorElement: <Error />,
-            },
-            {
                 path: '/management/branch',
                 element: <Branch />,
                 errorElement: <Error />,
@@ -62,6 +57,36 @@ const router = createBrowserRouter([
             {
                 path: '/management/branch/edit',
                 element: <EditBranch />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/employee',
+                element: <Employee />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/employee/add',
+                element: <AddEmployee />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/employee/edit',
+                element: <EditEmployee />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/product',
+                element: <Product />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/product/add',
+                element: <AddProduct />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/product/edit',
+                element: <EditProduct />,
                 errorElement: <Error />,
             }
         ]

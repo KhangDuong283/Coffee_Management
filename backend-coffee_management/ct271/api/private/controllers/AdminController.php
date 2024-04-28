@@ -22,8 +22,6 @@ class AdminController extends Controller
             $data = $admin->findAll();
             if (is_array($data)) {
                 echo json_encode($data);
-            } else {
-                echo json_encode(['message' => 'Admin not found']);
             }
         }
     }
@@ -50,7 +48,7 @@ class AdminController extends Controller
         $admin = new Admin();
         $data['admin_username'] = $admin_data['admin_username'];
         $data['admin_password'] = $admin_data['admin_password'];
-        
+
         $result = $admin->update($data, 'admin_id = ' . "'$id'");
         if ($result == '') {
             return json_encode(['message' => 'Admin updated successfully']);

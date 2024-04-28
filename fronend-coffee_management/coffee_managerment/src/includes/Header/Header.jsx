@@ -1,23 +1,34 @@
 import "./Header.css";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { logout } from "../../components/Auth/Login/AuthSlice.js"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useReadAdmin from "../../components/Auth/Register/hooks/useReadAdmin";
 
 export default function Header() {
-  // const auth = useSelector(state => state.Auth)
-  const dispatch = useDispatch();
 
   const navigate = useNavigate()
 
   const handleLogout = () => {
     localStorage.removeItem('auth');
-    dispatch(logout());
 
     navigate("/management/admin_login")
     toast.info("Logout success")
   }
+
+  // Lấy dữ liệu admin từ redux store
+  // const userInfor = useSelector(state => state.user.userInfo)
+  // const username = userInfor ? userInfor.admin_username : null;
+  // Mới đầu định lưu vô redux store nhưng mà load lại trang sẽ mất phiên đăng nhập
+
+  const username = localStorage.getItem('username');
+
+  // Lấy dữ liệu admin từ hook useReadAdmin dựa vào username lấy từ redux store
+  const { admins } = useReadAdmin();
+  const admin = admins ? admins.find(admin => admin.admin_username === username) : null;
+  const id = admin ? admin.admin_id : null;
+
+
+
 
   return (
     <div className="right-section">
@@ -40,8 +51,8 @@ export default function Header() {
           <div className="info">
             <img src="/src/assets/img/avtRoot.jpg" alt='hi' />
             <div className="account">
-              <h5>Reza MK</h5>
-              <p>Exapmle@gmail.com</p>
+              <p>{id}</p>
+              <h5>{username}</h5>
             </div>
           </div>
           <i className="ri-arrow-down-s-line" />

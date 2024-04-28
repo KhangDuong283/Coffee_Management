@@ -31,6 +31,7 @@ export default function BranchAddForm() {
     const formSubmit = (data) => {
         createBranch(data);
         reset();
+        navigate("/management/branch");
     }
 
     const textBtn = isCreating ? "Loading..." : "Submit";

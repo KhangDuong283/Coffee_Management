@@ -19,9 +19,7 @@ class BrancheController extends Controller
             $data = $branch->findAll();
             if (is_array($data)) {
                 echo json_encode($data);
-            } else {
-                echo json_encode(['message' => 'Branch not found']);
-            }
+            } 
         }
     }
 

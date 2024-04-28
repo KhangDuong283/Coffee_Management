@@ -1,14 +1,11 @@
 import axios from 'axios';
 
-const BASE_API_URL = "http://localhost/ct271/api/";
+const BASE_API_URL = "http://nienluan.localhost";
 
 class ProductService {
-    async getProducts(page, pageSize) {
-        return (
-            await axios.get(`${BASE_API_URL}/products`, {
-                params: { page: page - 1, pageSize },
-            })
-        ).data;
+    // Hàm lấy thông tin tất cả tài khoản admin
+    async read() {
+        return (await axios.get(`${BASE_API_URL}/products`)).data;
     }
 
     async create(newProduct) {
@@ -16,9 +13,8 @@ class ProductService {
     }
 
     async update(productId, updatedProduct) {
-        return (
-            await axios.put(`${BASE_API_URL}/products/${productId}`, updatedProduct)
-        ).data;
+
+        return (await axios.put(`${BASE_API_URL}/products/${productId}`, updatedProduct)).data;
     }
     async delete(productId) {
         return (await axios.delete(`${BASE_API_URL}/products/${productId}`)).data;
