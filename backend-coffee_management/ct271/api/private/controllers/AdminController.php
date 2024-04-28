@@ -37,7 +37,7 @@ class AdminController extends Controller
         $data['admin_password'] = $admin_data['admin_password'];
 
         $result = $admin->insert($data);
-        echo json_encode($result);
+        // echo json_encode($result);
         if ($result == false) {
             echo json_encode(['message' => 'Admin created successfully']);
         } else {

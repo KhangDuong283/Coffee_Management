@@ -38,7 +38,7 @@ export default function Header() {
 
         <div className="profile" data-bs-toggle="dropdown" aria-expanded="false">
           <div className="info">
-            <img src="../src/assets/img/avtRoot.jpg" alt='hi' />
+            <img src="/src/assets/img/avtRoot.jpg" alt='hi' />
             <div className="account">
               <h5>Reza MK</h5>
               <p>Exapmle@gmail.com</p>

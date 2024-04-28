@@ -61,16 +61,6 @@
   width: 10vw;
 }
 
-.main .branch__list tbody tr td:first-child span {
-  transition: all 0.2s linear;
-  padding: 10px 15px;
-  border-radius: 50%;
-}
-
-.main .branch__list tbody tr td:first-child:hover span {
-  background-color: #b9b9b9;
-}
-
 .main .branch__list tbody tr td:nth-child(2) {
   width: 25vw;
 }
@@ -98,6 +88,33 @@
   color: white;
 }
 
+.main .branch__list .modal-dialog-scrollable {
+  transform: translateX(-35%);
+}
+
+.main .branch__list .modal-dialog-scrollable .modal-content {
+  min-width: 900px;
+  min-height: 500px;
+}
+
+.main .branch__list tbody .branch__modal th {
+  width: 14% !important;
+}
+
+.main .branch__list tbody .branch__modal td {
+  width: 80% !important;
+  padding: 1rem 0;
+}
+
+.main .branch__list tbody .branch__modal td input {
+  color: #626262;
+  background-color: transparent;
+}
+
+.main .branch__list tbody .branch__modal td input:focus-visible {
+  border-radius: 10px;
+  color: #354b82;
+}
 
 @media screen and (max-width: 992px) {
   .main .branch__list tbody tr td.name,

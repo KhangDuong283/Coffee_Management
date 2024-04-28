@@ -7,7 +7,8 @@ export default function Employee() {
       <div className="main">
         <Header />
 
-        {/* Dashboard content */}
+        <h3 className='separator'>Employee list</h3>
+        
 
       </div>
     </div>

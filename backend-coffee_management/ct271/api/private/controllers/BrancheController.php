@@ -28,10 +28,15 @@ class BrancheController extends Controller
     public function create($branch_data = [])
     {
         $branch = new Branche();
-        $branch_data['branch_id'] = $branch->id_generator('B', 'branch_id');
-        $branch_data['branch_create_date'] = date('Y-m-d H:i:s');
-        $result = $branch->insert($branch_data);
-        if ($result) {
+        $data['branch_id'] = $branch->id_generator('B', 'branch_id');
+        $data['branch_create_date'] = date('Y-m-d H:i:s');
+        $data['branch_name'] = $branch_data['branch_name'];
+        $data['branch_address'] = $branch_data['branch_address'];
+        $data['branch_phone'] = $branch_data['branch_phone'];
+        $data['branch_email'] = $branch_data['branch_email'];
+        $data['branch_password'] = $branch_data['branch_password'];
+        $result = $branch->insert($data);
+        if (!$result) {
             echo json_encode(['message' => 'Branch created successfully']);
         } else {
             echo json_encode(['message' => 'Branch created failed']);
@@ -41,7 +46,12 @@ class BrancheController extends Controller
     public function update($branch_data = [], $id)
     {
         $branch = new Branche();
-        $result = $branch->update($branch_data, 'branch_id = ' . "'$id'");
+        $data['branch_name'] = $branch_data['branch_name'];
+        $data['branch_address'] = $branch_data['branch_address'];
+        $data['branch_phone'] = $branch_data['branch_phone'];
+        $data['branch_email'] = $branch_data['branch_email'];
+        $data['branch_password'] = $branch_data['branch_password'];
+        $result = $branch->update($data, 'branch_id = ' . "'$id'");
         if ($result) {
             return json_encode(['message' => 'Branch updated successfully']);
         } else {

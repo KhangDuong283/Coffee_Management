@@ -1,17 +1,16 @@
-import BranchList from './../../../components/Branch/BranchList/BranchList';
+import BranchAddForm from "../../../components/Branch/BranchAddForm/BranchAddForm";
 import Navbar from "../../../includes/Navbar/Navbar";
 import Header from "../../../includes/Header/Header";
 
-export default function Branch() {
+export default function AddBranch() {
   return (
     <div className="body__content">
       <Navbar />
       <div className="main">
         <Header />
 
-        <h3 className='separator'>Branch list</h3>
-        <BranchList />
-
+        <h3 className='separator'>Add new branch</h3>
+        <BranchAddForm />
       </div>
     </div>
   )

@@ -14,6 +14,10 @@ import Register from './../components/Auth/Register/Register';
 import ResetPassword from './../components/Auth/ResetPassword/ResetPassword';
 import PostLogin from './../components/Auth/PostLogin/PostLogin';
 import Management from '../layouts/Management';
+import AddBranch from '../pages/Management/Branch/AddBranch';
+import EditBranch from '../pages/Management/Branch/EditBranch';
+
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -48,6 +52,16 @@ const router = createBrowserRouter([
             {
                 path: '/management/branch',
                 element: <Branch />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/branch/add',
+                element: <AddBranch />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/management/branch/edit',
+                element: <EditBranch />,
                 errorElement: <Error />,
             }
         ]

@@ -23,7 +23,7 @@ class App
             $this->result = $this->$table($param);
         } else {
             echo "Can't find the table on 'this file' !! <br>";
-        }   
+        }
     }
 
     private function branches($param = [])
@@ -46,6 +46,7 @@ class App
             case "POST":
                 // Thêm tham số true để dữ liệu nhận được là mảng thay vì đối tượng (Object)
                 $data = json_decode(file_get_contents('php://input'), true);
+
                 return $branch->create($data);
             case "PUT":
                 if (isset($endpoint)) {

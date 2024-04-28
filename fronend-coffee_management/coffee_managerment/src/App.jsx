@@ -25,7 +25,7 @@ export default function App() {
         <Router />
         <ToastContainer
           position="top-center"
-          autoClose={2500}
+          autoClose={2000}
           theme="colored"
         />
       </QueryClientProvider>
