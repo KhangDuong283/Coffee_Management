@@ -29,7 +29,8 @@
 }
 
 .order__content .order__item .product__name {
-  max-width: 8vw;
+  max-width: 9vw;
+  min-width: 9vw;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -47,6 +48,7 @@
 
 .order__content .order__content-item .btn__group i {
   cursor: pointer;
+  
 }
 
 .payment__content {

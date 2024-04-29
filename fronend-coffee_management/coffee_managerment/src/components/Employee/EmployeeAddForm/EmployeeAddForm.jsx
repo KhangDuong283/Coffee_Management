@@ -145,7 +145,20 @@ export default function EmployeeAddForm() {
                     </div>
                 </div>
 
-
+                <div className="row mb-3">
+                    {/* Salary */}
+                    <div className="col-4">
+                        <label htmlFor="employee_salary" className="form-label">Employee salary</label>
+                        <input {...register("employee_salary", {
+                            required: {
+                                value: true,
+                                message: "Employee salary is required"
+                            }
+                        })} autoFocus type="text" id="employee_salary" name="employee_salary" className="form-control" />
+                        <small className="text-danger fst-italic">{errors.employee_salary?.message}</small>
+                    </div>
+                </div>
+                
                 <button onClick={handleCancel} type="button" className="btn btn-danger me-3 mt-4">Cancel</button>
                 <button onClick={() => reset()} type="button" className="btn btn-warning me-3 mt-4">Reset</button>
                 <button type="submit" className="btn btn-success">{textBtn}</button>

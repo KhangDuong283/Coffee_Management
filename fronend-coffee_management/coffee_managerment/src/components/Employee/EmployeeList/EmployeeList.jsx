@@ -147,6 +147,10 @@ export default function EmployeeList() {
                                                             <th>Branch</th>
                                                             <td>{getBranchName(employee.branch_id)}</td>
                                                         </tr>
+                                                        <tr>
+                                                            <th>Salary</th>
+                                                            <td>{Number(employee.employee_salary).toLocaleString()}</td>
+                                                        </tr>
                                                     </tbody>
                                                 </div>
                                             </div>

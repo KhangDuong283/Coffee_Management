@@ -34,10 +34,12 @@ export default function EmployeeEditForm() {
     // Set giá trị mặc định cho form từ employee được truyền xuống qua location
     useEffect(() => {
         setValue("employee_name", employee.employee_name);
+        setValue("employee_age", employee.employee_age);
         setValue("employee_email", employee.employee_email);
         setValue("employee_phone", employee.employee_phone);
         setValue("employee_position", employee.employee_position);
         setValue("branch_id", employee.branch_id);
+        setValue("employee_salary", employee.employee_salary);
     }, [employee, setValue]);
 
 
@@ -56,12 +58,6 @@ export default function EmployeeEditForm() {
     // Lấy tên branch từ branch_id
     const { branches } = useReadBranch();
     const branch_data = branches;
-    if (branches) {
-        console.log(true);
-    } else {
-        console.log(false);
-
-    }
 
     return (
         <div className="edit__employee">
@@ -159,6 +155,22 @@ export default function EmployeeEditForm() {
                         </select>
                         <br />
                         <small className="text-danger fst-italic">{errors.branch_id?.message}</small>
+                    </div>
+
+
+                </div>
+
+                <div className="row mb-3">
+                    {/* Salary */}
+                    <div className="col-4">
+                        <label htmlFor="employee_salary" className="form-label">Employee salary</label>
+                        <input {...register("employee_salary", {
+                            required: {
+                                value: true,
+                                message: "Employee salary is required"
+                            }
+                        })} autoFocus type="text" id="employee_salary" name="employee_salary" className="form-control" />
+                        <small className="text-danger fst-italic">{errors.employee_salary?.message}</small>
                     </div>
                 </div>
 

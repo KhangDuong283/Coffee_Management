@@ -1,6 +1,8 @@
 import "./MenuList.css";
 import useReadProduct from './../Product/ProductList/hooks/useReadProduct';
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCart } from "./CartSlice";
 
 
 
@@ -9,7 +11,6 @@ export default function MenuList() {
     // Lấy tên branch từ branch_id
     const { products, error } = useReadProduct();
 
-    const choose_product = null;
 
     const [productData, setProductData] = useState([]);
 
@@ -19,7 +20,8 @@ export default function MenuList() {
         setProductData(updatedProductData);
     }, [products]);
 
-    // console.log(productData)
+
+    // Hàm xử lý khi chọn size
     const handleSize = (product, index) => {
         // Tạo một bản sao của productData
         const updatedProductData = [...productData];
@@ -34,11 +36,30 @@ export default function MenuList() {
             productToUpdate.product_current_size = index;
 
             // Cập nhật state
-            setProductData(updatedProductData);             
+            setProductData(updatedProductData);
+
         }
 
     }
 
+    const dispatch = useDispatch();
+
+    // Tạo một mảng các sản phẩm đã chọn
+    // const [cart, setCart] = useState([]);
+
+    const handleAdd = (product) => {
+        // Tạo một bản sao của cart
+        // const updatedCart = [...cart];
+        // Tạo một bản sao của product
+        const productToAdd = { ...product };
+        // // Thêm productToAdd vào mảng updatedCart
+        // updatedCart.push(productToAdd);
+        // // Cập nhật state
+        // setCart(updatedCart);
+
+        // Gửi sản phẩm mới được thêm vào lên store
+        dispatch(addCart(productToAdd));
+    }
 
 
 
@@ -48,7 +69,7 @@ export default function MenuList() {
                 <div className="menu__item col-2" key={product.product_id}>
                     <div className="card" style={{ width: '100%' }}>
                         <img style={{ height: "20vh", objectFit: "cover" }}
-                            src={product.product_img}
+                            src="https://cdn.tgdd.vn/Files/2020/04/08/1247674/ca-phe-espresso-cappuccino-hay-macchiato-khac-nhau-nhu-the-nao-202004081936305660.jpg"
                             className="card-img-top" alt={product.product_name} />
                         <div className="card-body mx-1 p-0">
                             <p className="card-text text-center fw-bold mb-0 name">{product.product_name}</p>
@@ -65,7 +86,7 @@ export default function MenuList() {
                                     <small className={product.product_current_size == 2 ? "active" : ""} onClick={() => { handleSize(product, 2) }}>L</small>
                                 </span>
                                 <div className="text-center">
-                                    <button className="btn btn-outline-success add_button my-2">Add</button>
+                                    <button onClick={() => { handleAdd(product) }} className="btn btn-outline-success add_button my-2">Add</button>
                                 </div>
                             </div>
                         </div>
