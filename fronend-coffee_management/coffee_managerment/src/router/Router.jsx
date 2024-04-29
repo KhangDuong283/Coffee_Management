@@ -19,6 +19,7 @@ import EditEmployee from '../pages/Management/Employee/EditEmployee';
 import AddProduct from '../pages/Management/Product/AddProduct';
 import EditProduct from '../pages/Management/Product/EditProduct';
 import OrderPost from '../pages/Post/Order/OrderPost';
+import Bill from '../components/Bill/Bill';
 
 
 const router = createBrowserRouter([
@@ -99,6 +100,11 @@ const router = createBrowserRouter([
                 element: <OrderPost />,
                 errorElement: <Error />,
             },
+            {
+                path: '/post/bill',
+                element: <Bill />,
+                errorElement: <Error />,
+            }
         ]
     },
     {

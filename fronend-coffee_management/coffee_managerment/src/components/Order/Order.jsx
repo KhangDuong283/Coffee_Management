@@ -43,6 +43,18 @@ export default function Order() {
     // tổng tiền
     const total = sub_total + vat;
 
+    // Lãi tạm tính
+    const sub_profit = updatedCart.reduce((total, product) => {
+        return total +
+            (product.product_current_size == 0 ? Number(product.product_price_s - product.product_cost_s) * product.product_quantity
+                : product.product_current_size == 1 ? Number(product.product_price_m - product.product_cost_m) * product.product_quantity
+                    : Number(product.product_price_l - product.product_cost_l) * product.product_quantity);
+    }, 0);
+
+    // Lợi nhuận
+    const profit = sub_profit - vat;                                                                
+
+
     const handleOrder = () => {
 
         // Sau đó clear cart
