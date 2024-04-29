@@ -14,7 +14,7 @@ export default function Management() {
         return localStorageAuth;
     }
 
-    if (checkLogin() === true) {
+    if (checkLogin()) {
         return (<Outlet />)
     } else {
         navigate("/management/admin_login")

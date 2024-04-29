@@ -1,0 +1,56 @@
+.menu__content {
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow: auto;
+}
+
+.menu__content .menu__item {
+  padding: 20px;
+  width: 25%;
+}
+
+.menu__content .menu__item .size__group {
+  display: block;
+  text-align: center;
+}
+
+.menu__content .menu__item .name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.menu__content .menu__item .price {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.menu__content .menu__item .size__group small {
+  background-color: white;
+
+  border: 2px solid #d7e2ef;
+  width: 20px !important;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  color: #75889e;
+  transition: all 0.15s;
+}
+
+.menu__content .menu__item .size__group small:hover {
+  background-color: #d7e2ef;
+}
+
+.menu__content .menu__item .size__group small.active {
+  background-color: #d7e2ef;
+}
+
+.menu__content .menu__item .add_button {
+  text-align: center;
+  padding: 2px 20px;
+}
+
+.menu__content .menu__item .add_button:hover {
+  background-color: green;
+  color: white;
+}

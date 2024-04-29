@@ -1,0 +1,77 @@
+.order__content {
+  margin-top: 15px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.order__content .order__content-item {
+  height: 60%;
+  overflow: hidden;
+  overflow-y: auto;
+  border-bottom: 1px solid #000;
+}
+
+.order__content .payment__content {
+  height: 35%;
+  margin: 20px;
+}
+
+.order__content .order__item {
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(190, 222, 234);
+}
+
+.order__content .order__item .product__img {
+  width: 3.5vw;
+  height: 3.5vw;
+  object-fit: cover;
+}
+
+.order__content .order__item .product__name {
+  max-width: 8vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.order__content .order__content-item .order__item {
+  width: 90%;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+.order__content .order__content-item .btn__remove {
+  cursor: pointer;
+}
+
+.order__content .order__content-item .btn__group i {
+  cursor: pointer;
+}
+
+.payment__content {
+  /* padding: 15px; */
+
+  justify-content: space-center;
+}
+
+.order__button,
+.pay,
+.tax__pay,
+.total__pay {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tax__pay {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 10px; /* Điều chỉnh khoảng cách giữa nội dung và đường viền */
+}
+
+.pay {
+  border-bottom: 1px dashed #000;
+}

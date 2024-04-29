@@ -7,8 +7,6 @@ import Product from './../pages/Management/Product/Product';
 import Employee from './../pages/Management/Employee/Employee';
 import Branch from './../pages/Management/Branch/Branch';
 import Post from './../layouts/Post';
-import Menu from './../pages/Post/Menu/Menu';
-import Order from './../pages/Post/Order/Order';
 import Login from './../components/Auth/Login/Login';
 import Register from './../components/Auth/Register/Register';
 import ResetPassword from './../components/Auth/ResetPassword/ResetPassword';
@@ -18,9 +16,9 @@ import AddBranch from '../pages/Management/Branch/AddBranch';
 import EditBranch from '../pages/Management/Branch/EditBranch';
 import AddEmployee from '../pages/Management/Employee/AddEmployee';
 import EditEmployee from '../pages/Management/Employee/EditEmployee';
-import ProductAddForm from '../components/Product/ProductAddForm/ProductAddForm';
 import AddProduct from '../pages/Management/Product/AddProduct';
 import EditProduct from '../pages/Management/Product/EditProduct';
+import OrderPost from '../pages/Post/Order/OrderPost';
 
 
 const router = createBrowserRouter([
@@ -97,13 +95,8 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             {
-                path: '/post/menu',
-                element: <Menu />,
-                errorElement: <Error />,
-            },
-            {
                 path: '/post/order',
-                element: <Order />,
+                element: <OrderPost />,
                 errorElement: <Error />,
             },
         ]

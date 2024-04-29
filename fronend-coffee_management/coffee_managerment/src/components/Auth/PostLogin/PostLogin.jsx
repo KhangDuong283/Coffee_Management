@@ -1,19 +1,61 @@
+import { toast } from "react-toastify";
 import "./PostLogin.css"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import useReadBranch from "../../Branch/BranchList/hooks/useReadBranch";
+import { useForm } from "react-hook-form";
 
 export default function PostLogin() {
-    const handlePostLogin = () => {
-        console.log("Login to the sales page");
+    const navigate = useNavigate()
+
+    // Lấy dữ liệu branch từ database
+    const { branches } = useReadBranch();
+    const branch_data = branches ? branches : [];
+
+    // form
+    const form = useForm({
+        defaultValues: {
+            branch_id: "",
+            branch_password: ""
+        }
+    });
+
+    const { register, handleSubmit, formState } = form;
+    const { errors } = formState;
+
+    const formSubmit = (data) => {
+
+        // Lưu trạng thái đăng nhập vào localStorage
+        localStorage.setItem('auth_post', 'true');
+
+        // Lưu branch data vào localStorage
+        localStorage.setItem('post_data', data);
+
+
+
+        // Nếu không có lỗi thì chuyển hướng đến trang post
+        toast.success("Post login success")
+        navigate("/post/order")
     }
     return (
         <div className="post__login">
             <div className="post__login__content">
                 <p className="title">Post login</p>
-                <form>
+                <form onSubmit={handleSubmit(formSubmit)}>
 
                     <div data-mdb-input-init className="form-outline mb-4">
-                        <input name="branch_id" type="text" id="form2Example1" className="form-control" />
-                        <label className="form-label" htmlFor="form2Example1">Branch id</label>
+                        <label htmlFor="branch_id" className="form-label">Branch name</label>
+                        <input {...register("branch_id", {
+                            required: {
+                                value: true,
+                                message: "Branch id is required"
+                            }, validate: {
+                                checkBranch:
+                                    (inputValue) => {
+                                        return branch_data.find(branch => branch.branch_id === inputValue) || "Branch id does not exist"
+                                    }
+                            }
+                        })} autoFocus type="text" id="branch_id" name="branch_id" className="form-control" />
+                        <small className="text-danger fst-italic">{errors.branch_id?.message}</small>
                     </div>
 
                     <div data-mdb-input-init className="form-outline mb-4">
@@ -22,7 +64,7 @@ export default function PostLogin() {
                     </div>
 
 
-                    <button onClick={() => { handlePostLogin() }} type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-info btn-block mb-4">
+                    <button type="submit" data-mdb-button-init data-mdb-ripple-init className="btn btn-info btn-block mb-4">
                         Login
                     </button>
 
