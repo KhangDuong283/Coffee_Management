@@ -4,6 +4,7 @@ import useReadBranch from "./hooks/useReadBranch";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import useDeleteBranch from "./hooks/useDeleteBranch";
+import useReadEmployee from './../../Employee/EmployeeList/hooks/useReadEmployee';
 
 export default function BranchList() {
   // Khai báo state clickCount để lưu trữ số lần click vào row
@@ -63,6 +64,10 @@ export default function BranchList() {
     deleteBranch(branch_id)
   }
 
+  // lấy dữ liệu nhân viên
+  const { employees } = useReadEmployee();
+  const employee_data = employees ? employees : [];
+
 
   return (
     <table className="branch__list">
@@ -94,7 +99,7 @@ export default function BranchList() {
               <td className="name" >{branch.branch_id}</td>
               <td className="name">{branch.branch_name}</td>
               <td className="extension">{branch.branch_phone}</td>
-              <td className="more">5</td>
+              <td className="more">{employee_data?.filter(employee => employee.branch_id === branch.branch_id).length}</td>
               <td className="more dropstart" >
                 <p data-bs-toggle="dropdown" aria-expanded="false" className="mb-0">
                   <i className="ri-more-fill" />

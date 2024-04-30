@@ -46,7 +46,7 @@ export default function BarChartComponent() {
 
 
     return (
-        <div className="w-100 " style={{height: "200px"}}>
+        <div className="w-100 " style={{ height: "200px" }}>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart width={500} height={400} data={branchArray}>
                     <YAxis />
@@ -55,8 +55,8 @@ export default function BarChartComponent() {
                     <legend />
                     <Tooltip />
 
-                    <Bar type="monotone" dataKey="totalBillProductPrice" stroke="#8884d8" fill="#3bc963" stackId="1" />
-                    <Bar type="monotone" dataKey="totalBillProductCost" stroke="#82ca9d" fill="#1d92f1" stackId="1" />
+                    <Bar type="monotone" dataKey="totalBillProductPrice" stroke="#8884d8" fill="#3bc963" />
+                    <Bar type="monotone" dataKey="totalBillProductCost" stroke="#82ca9d" fill="#1d92f1" />
                 </BarChart>
             </ResponsiveContainer >
         </div>
