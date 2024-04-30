@@ -28,8 +28,7 @@ export default function PostLogin() {
         localStorage.setItem('auth_post', 'true');
 
         // Lưu branch data vào localStorage
-        localStorage.setItem('post_data', data);
-
+        localStorage.setItem('branch_id', data.branch_id);
 
 
         // Nếu không có lỗi thì chuyển hướng đến trang post

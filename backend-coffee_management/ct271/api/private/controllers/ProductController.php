@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function create($product_data = [])
     {
         $product = new Product();
-        $data['product_id'] = $product->id_generator('E', 'product_id');
+        $data['product_id'] = $product->id_generator('P', 'product_id');
         $data['product_name'] = $product_data['product_name'];
         $data['product_active'] = $product_data['product_active'];
         $data['product_price_s'] = $product_data['product_price_s'];
@@ -35,6 +35,7 @@ class ProductController extends Controller
         $data['product_cost_s'] = $product_data['product_cost_s'];
         $data['product_cost_m'] = $product_data['product_cost_m'];
         $data['product_cost_l'] = $product_data['product_cost_l'];
+        $data['product_current_size'] = 0;
 
         $result = $product->insert($data);
         if (!$result) {
@@ -55,6 +56,7 @@ class ProductController extends Controller
         $data['product_cost_s'] = $product_data['product_cost_s'];
         $data['product_cost_m'] = $product_data['product_cost_m'];
         $data['product_cost_l'] = $product_data['product_cost_l'];
+
         $result = $product->update($data, 'product_id = ' . "'$id'");
         if ($result) {
             return json_encode(['message' => 'Product updated successfully']);

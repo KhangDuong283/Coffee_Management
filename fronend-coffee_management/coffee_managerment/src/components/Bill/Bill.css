@@ -1,0 +1,17 @@
+.bill__content {
+    margin: 50px;
+}
+
+.bill__title .title__phone {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #000;
+}
+
+.bill__info p {
+    margin-bottom: 0;
+}
+
+.bill__table {
+    padding-top: 20px;
+    border-top: 1px solid #000;                                                         
+}

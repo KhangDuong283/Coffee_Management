@@ -2,6 +2,8 @@
 namespace App\Core;
 
 use App\Controllers\AdminController;
+use App\Controllers\BillController;
+use App\Controllers\BillProductController;
 use App\Controllers\EmployeeController;
 use App\Controllers\ProductController;
 use App\Model\Branche;
@@ -153,6 +155,70 @@ class App
                 }
         }
     }
+
+    private function bills($param = [])
+    {
+        $bill = new BillController();
+        $method = $_SERVER['REQUEST_METHOD'];
+        $endpoint = isset($param[0]) ? $param[0] : null;
+        $id = isset($param[1]) ? $param[1] : null;
+
+        switch ($method) {
+            case "GET":
+                if ($endpoint == "count") {
+                    return $bill->count();
+                } elseif (isset($endpoint)) {
+                    return $bill->read($endpoint);
+                } elseif (!isset($endpoint)) {
+                    return $bill->read();
+                }
+            case "POST":
+                $data = json_decode(file_get_contents('php://input'), true);
+                return $bill->create($data);
+            case "PUT":
+                if (isset($endpoint)) {
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    return $bill->update($data, $endpoint);
+                }
+            case "DELETE":
+                if (isset($endpoint)) {
+                    return $bill->delete($endpoint);
+                }
+        }
+    }
+
+    private function billproducts($param = [])
+    {
+        $billproduct = new BillProductController();
+        $method = $_SERVER['REQUEST_METHOD'];
+        $endpoint = isset($param[0]) ? $param[0] : null;
+        $id = isset($param[1]) ? $param[1] : null;
+
+        switch ($method) {
+            case "GET":
+                if ($endpoint == "count") {
+                    return $billproduct->count();
+                } elseif (isset($endpoint)) {
+                    return $billproduct->read($endpoint);
+                } elseif (!isset($endpoint)) {
+                    return $billproduct->read();
+                }
+            case "POST":
+                $data = json_decode(file_get_contents('php://input'), true);
+                return $billproduct->create($data);
+            case "PUT":
+                if (isset($endpoint)) {
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    return $billproduct->update($data, $endpoint);
+                }
+            case "DELETE":
+                if (isset($endpoint)) {
+                    return $billproduct->delete($endpoint);
+                }
+        }
+    }
+
+
 
 
     public function getURL()

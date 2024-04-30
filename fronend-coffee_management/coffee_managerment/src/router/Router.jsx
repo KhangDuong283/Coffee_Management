@@ -101,7 +101,7 @@ const router = createBrowserRouter([
                 errorElement: <Error />,
             },
             {
-                path: '/post/bill',
+                path: '/post/print_bill',
                 element: <Bill />,
                 errorElement: <Error />,
             }

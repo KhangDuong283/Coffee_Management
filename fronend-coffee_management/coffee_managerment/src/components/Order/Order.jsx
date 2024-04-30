@@ -1,6 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useDispatch, useSelector } from "react-redux";
 import "./Order.css";
 import { addCart, emptyCart, removeFromCart } from "../Menu/CartSlice";
+import { useNavigate } from "react-router-dom";
+import useReadBranch from './../Branch/BranchList/hooks/useReadBranch';
+import useReadEmployee from './../Employee/EmployeeList/hooks/useReadEmployee';
+import { useState } from "react";
+import useCreateBill from "./hooks/useCreateBill";
+import { toast } from "react-toastify";
+import useReadBill from './hooks/useReadBill';
+import useCreateBillProduct from './hooks/useCreateBillProduct';
+
+// Thực hiện in hóa đơn
+
 
 export default function Order() {
     const dispatch = useDispatch();
@@ -13,6 +25,11 @@ export default function Order() {
         return { ...product, product_quantity: quantity };
     });
 
+    // **************************************************************************************************
+    // **************************************************************************************************
+    // CART CHÍNH
+    // **************************************************************************************************
+    // **************************************************************************************************
     // filter duyệt lần lượt qua các sản phẩm trong cart
     const updatedCart = cartWithQuantity.filter((product, index) => {
         // chỉ giữ lại phần từ có index trùng với index hiện tại 
@@ -51,16 +68,6 @@ export default function Order() {
                     : Number(product.product_price_l - product.product_cost_l) * product.product_quantity);
     }, 0);
 
-    // Lợi nhuận
-    const profit = sub_profit - vat;                                                                
-
-
-    const handleOrder = () => {
-
-        // Sau đó clear cart
-        // dispatch(emptyCart());
-
-    }
 
     const handleMinus = (product) => {
         // Xóa sản phẩm khỏi cart
@@ -82,9 +89,119 @@ export default function Order() {
     }
 
 
+    const navigate = useNavigate();
+    const handleLogoutBranch = () => {
+
+        // Xóa thông tin chi nhánh khỏi localStorage
+        localStorage.removeItem('post_data');
+        // Chuyển hướng về trang login bằng navigate
+        navigate("/post/post_login");
+    }
+
+    // lấy dữ liệu branch_id từ localStorage đữ lưu khi login
+    const branch_id = localStorage.getItem('branch_id');
+
+    const { branches } = useReadBranch();
+    // lấy thông tin của branch cùng với branch id đươc lưu trong localStorage
+    const this_branch = branches?.find(branch => branch.branch_id == branch_id);
+
+    // Lấy danh sách nhân viên từ database
+    const { employees } = useReadEmployee();
+
+    // Lấy danh sách nhân viên có employee_position là Casier trong this_branch
+    const casiers_employee = employees?.filter(employee => employee.branch_id == branch_id && employee.employee_position == "Cashier");
+
+    // Lấy nhân viên được chọn ở option
+    const [selectedEmployee, setSelectedEmployee] = useState("");
+    const handleEmployeeChange = (event) => {
+        setSelectedEmployee(event.target.value);
+    }
+
+    const { createBill } = useCreateBill();
+    const { createBillProduct } = useCreateBillProduct();
+    const { bills } = useReadBill();
+    const bills_data = bills ? bills : [];
+
+    const handleOrder = () => {
+        // Tạo một bill mới
+        const newBill = {
+            branch_id: branch_id,
+            employee_id: selectedEmployee,
+        }
+
+
+        // Gửi bill mới lên server
+        if (sub_total !== 0) {
+            createBill(newBill);
+
+            // Lấy thông tin bill vừa tạo (bill có id là chuỗi lớn nhất)
+            const newBillId = bills_data?.reduce((max, item) => {
+                // Kiểm tra từng id có lớn hơn max thì gán max = id đó
+                return max > item.bill_id ? max : item.bill_id;
+            }, '');
+
+            // Thêm thông tin từng sản phẩm vào BillProduct
+            updatedCart.map((product) => {
+
+                // lấy size
+                var size = product.product_current_size == 0 ? "S" :
+                    product.product_current_size == 1 ? "M" :
+                        product.product_current_size == 2 ? "L" : null;
+                // lấy giá
+                var price = size == "S" ? product.product_price_s :
+                    size == "M" ? product.product_price_m :
+                        size == "L" ? product.product_price_l : null;
+                // lấy chi phí
+                var cost = size == "S" ? product.product_cost_s :
+                    size == "M" ? product.product_cost_m :
+                        size == "L" ? product.product_cost_l : null;
+
+                const newBillProduct = {
+                    bill_id: newBillId,
+                    product_id: product.product_id,
+                    billproduct_size: product.product_current_size,
+                    billproduct_price: price,
+                    billproduct_cost: cost,
+                    billproduct_quantity: product.product_quantity,
+                }
+
+                createBillProduct(newBillProduct);
+
+            });
+
+            // Sau đó clear cart
+            dispatch(emptyCart());
+
+            // Chuyển hướng đến trang in hóa đơn và truyền một số thông tin này kia qua state
+            navigate("/post/print_bill", { state: { bill: newBill, bill_id: newBillId, branch: this_branch, cart: updatedCart, employee_id: selectedEmployee, employees: casiers_employee } })
+        } else {
+            toast.error("Please add some products to cart!!")
+        }
+
+    }
+
     return (
         // Chỉnh background màu đen
         <div className="order__content bg-white container" style={{ height: "95vh" }}>
+            <div className="order__header w-100 d-flex flex-column align-items-center">
+                <div className="order__header-content">
+                    <select onChange={handleEmployeeChange}>
+                        <option value="">Implement employee</option>
+                        {casiers_employee?.map((employee) => (
+                            <option key={employee.employee_id} value={employee.employee_id}>
+                                {employee.employee_name}
+                            </option>
+                        ))}
+                    </select>
+
+                    <div className="branch__name" data-bs-toggle="dropdown" aria-expanded="false">{this_branch?.branch_name}</div>
+                    <ul className="dropdown-menu">
+                        <a className="dropdown-item" onClick={handleLogoutBranch}>Logout branch</a>
+                    </ul>
+
+                </div>
+            </div>
+
             <div className="order__content-item w-100 d-flex flex-column align-items-center">
                 {updatedCart?.map((product, index) => (
                     <div className="order__item m-2 text-center d-flex" key={index}>
@@ -135,7 +252,9 @@ export default function Order() {
 
                 <div className="order__button">
                     <button className="btn btn-danger mt-5" onClick={handleClear}>Clear</button>
-                    <button className="btn btn-success mt-5" onClick={handleOrder}>Place order</button>
+                    {/* <button className="btn btn-success mt-5" onClick={handleOrder}>Place order</button> */}
+                    <button className="btn btn-info mt-5" onClick={handleOrder}>Order</button>
+
                 </div>
             </div>
 

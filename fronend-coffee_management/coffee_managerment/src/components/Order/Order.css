@@ -4,15 +4,32 @@
   margin-left: 5px;
 }
 
+.order__content .order__header {
+  height: 5%; 
+  border-bottom: 1px solid #000;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.order__content .order__header .order__header-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.branch__name {
+  cursor: pointer;
+}
+
 .order__content .order__content-item {
-  height: 60%;
+  height: 58%;
   overflow: hidden;
   overflow-y: auto;
   border-bottom: 1px solid #000;
 }
 
 .order__content .payment__content {
-  height: 35%;
+  height: 26%;
   margin: 20px;
 }
 
@@ -48,7 +65,6 @@
 
 .order__content .order__content-item .btn__group i {
   cursor: pointer;
-  
 }
 
 .payment__content {
