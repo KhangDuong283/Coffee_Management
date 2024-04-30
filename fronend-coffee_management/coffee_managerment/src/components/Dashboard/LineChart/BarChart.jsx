@@ -1,10 +1,10 @@
-import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from "recharts"
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from "recharts"
 import useReadBillProduct from "./hooks/useReadBillProduct";
 import useReadBill from './../../Order/hooks/useReadBill';
 import useReadBranch from './../../Branch/BranchList/hooks/useReadBranch';
 
 
-export default function LineChart() {
+export default function BarChartComponent() {
 
     // Lấy dữ liệu hóa đơn
     const { bills } = useReadBill();
@@ -46,18 +46,18 @@ export default function LineChart() {
 
 
     return (
-        <div className="w-100" style={{height: "200px"}}>
+        <div className="w-100 " style={{height: "200px"}}>
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart width={500} height={400} data={branchArray}>
+                <BarChart width={500} height={400} data={branchArray}>
                     <YAxis />
                     <XAxis dataKey="branch_id" />
                     <CartesianGrid strokeDasharray="5 5" />
                     <legend />
                     <Tooltip />
 
-                    <Area type="monotone" dataKey="totalBillProductPrice" stroke="#8884d8" fill="#3bc963" stackId="1" />
-                    <Area type="monotone" dataKey="totalBillProductCost" stroke="#82ca9d" fill="#1d92f1" stackId="1" />
-                </AreaChart>
+                    <Bar type="monotone" dataKey="totalBillProductPrice" stroke="#8884d8" fill="#3bc963" stackId="1" />
+                    <Bar type="monotone" dataKey="totalBillProductCost" stroke="#82ca9d" fill="#1d92f1" stackId="1" />
+                </BarChart>
             </ResponsiveContainer >
         </div>
     )

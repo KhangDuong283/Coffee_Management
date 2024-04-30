@@ -28,8 +28,7 @@ class BillController extends Controller
     public function create($bill_data = [])
     {
         $bill = new Bill();
-
-        $data['bill_id'] = $bill->id_generator('OD', 'bill_id');
+        $data['bill_id'] = $bill_data['bill_id'];
         $data['bill_datetime'] = date('Y-m-d H:i:s');
         $data['branch_id'] = $bill_data['branch_id'];
         $data['employee_id'] = $bill_data['employee_id'];
