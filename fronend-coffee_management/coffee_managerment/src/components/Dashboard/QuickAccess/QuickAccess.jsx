@@ -10,12 +10,12 @@ export default function QuickAccess() {
             </div>
             <div className="item">
                 <i className="fa fa-file-invoice-dollar"></i>
-                <h5>Income</h5>
+                <h5>Quantity products sold</h5>
                 <p>210/500 files</p>
             </div>
             <div className="item">
                 <i className="fa fa-money-check-alt"></i>
-                <h5>Expenses</h5>
+                <h5>Revenue</h5>
                 <p>90/1000 files</p>
             </div>
             <div className="item">

@@ -123,8 +123,32 @@ export default function Order() {
     const bills_data = bills ? bills : [];
 
     const handleOrder = () => {
+        let newBillId = "OD001";
+
+        if (bills_data && bills_data.length > 0) {
+            const maxBillId = bills_data?.reduce((max, item) => {
+                return max > item.bill_id ? max : item.bill_id;
+            }, '');
+
+            // Tách phần số từ maxBillId
+            const numberPart = parseInt(maxBillId.substring(2));
+
+            // Tăng phần số lên 1
+            const newNumberPart = numberPart + 1;
+
+            // Định dạng lại phần số để có đủ 3 chữ số
+            const formattedNumberPart = newNumberPart.toString().padStart(3, '0');
+
+            // Nối lại với phần chữ để tạo newBillId mới
+            newBillId = "OD" + formattedNumberPart;
+            console.log(newBillId);
+        }
+
+        console.log(newBillId);
         // Tạo một bill mới
         const newBill = {
+
+            bill_id: newBillId,
             branch_id: branch_id,
             employee_id: selectedEmployee,
         }
@@ -134,11 +158,6 @@ export default function Order() {
         if (sub_total !== 0) {
             createBill(newBill);
 
-            // Lấy thông tin bill vừa tạo (bill có id là chuỗi lớn nhất)
-            const newBillId = bills_data?.reduce((max, item) => {
-                // Kiểm tra từng id có lớn hơn max thì gán max = id đó
-                return max > item.bill_id ? max : item.bill_id;
-            }, '');
 
             // Thêm thông tin từng sản phẩm vào BillProduct
             updatedCart.map((product) => {
@@ -166,6 +185,7 @@ export default function Order() {
                 }
 
                 createBillProduct(newBillProduct);
+                toast.info("newBillProduct successfully!!")
 
             });
 
