@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useReadEmployee from "./hooks/useReadEmployee";
 import useReadBranch from "../../Branch/BranchList/hooks/useReadBranch";
 import useDeleteEmployee from "./hooks/useDeleteEmployee";
+import { useSelector } from "react-redux";
 
 export default function EmployeeList() {
     // *******************************Chọn dòng*********************************************
@@ -39,11 +40,20 @@ export default function EmployeeList() {
     // *************************************************************************************
     // Lấy dữ liệu employee từ database
     const { employees, error } = useReadEmployee();
-    const employee_data = employees;
+    var employee_data = employees ? employees : [];
+
+    // Lấy branc_id từ store
+    const id = useSelector(state => state.branch);
+
+    // Lọc lại dữ liệu employee theo branch_id
+    if (id) {
+        employee_data = employees?.filter(employee => employee.branch_id === id);
+    }
+
 
     // Lấy tên branch từ branch_id
     const { branches } = useReadBranch();
-    const branch_data = branches;
+    const branch_data = branches ? branches : [];
 
     const getBranchName = (branch_id) => {
         if (branch_data) {
@@ -93,7 +103,7 @@ export default function EmployeeList() {
                 {!error && !employee_data ?
                     (<tr><td colSpan="5">There are no employees right now</td></tr>)
                     :
-                    (employee_data?.map((employee, index) => (
+                    (employee_data.map((employee, index) => (
                         <tr key={index}
                             // Hiển thị row được chọn
                             onClick={() => handleClick(index)}

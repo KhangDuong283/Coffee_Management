@@ -21,8 +21,8 @@ export default function MenuList() {
     }, [products]);
 
 
-    // Hàm xử lý khi chọn size
-    const handleSize = (product, index) => {
+    // Hàm xử lý khi chọn size 
+    const handleSize = (product, size) => {
         // Tạo một bản sao của productData
         const updatedProductData = [...productData];
 
@@ -33,11 +33,10 @@ export default function MenuList() {
         // Kiểm tra nếu productToUpdate tồn tại
         if (productToUpdate) {
             // Cập nhật size của sản phẩm
-            productToUpdate.product_current_size = index;
+            productToUpdate.product_current_size = size;
 
             // Cập nhật state
             setProductData(updatedProductData);
-
         }
 
     }

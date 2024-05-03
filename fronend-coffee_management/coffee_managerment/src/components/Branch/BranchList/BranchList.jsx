@@ -5,6 +5,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import useDeleteBranch from "./hooks/useDeleteBranch";
 import useReadEmployee from './../../Employee/EmployeeList/hooks/useReadEmployee';
+import { useSelector } from "react-redux";
 
 export default function BranchList() {
   // Khai báo state clickCount để lưu trữ số lần click vào row
@@ -37,8 +38,13 @@ export default function BranchList() {
 
   // Lấy dữ liệu branch từ database
   const { branches, error } = useReadBranch();
-  const branch_data = branches;
+  var branch_data = branches ? branches : [];
 
+  // Lấy branch_id từ store
+  const id = useSelector(state => state.branch);
+  if (id) {
+    branch_data = branches?.filter(branch => branch.branch_id === id);
+  }
 
   const [visible, setVisible] = useState(false);
   const handleVisible = () => {

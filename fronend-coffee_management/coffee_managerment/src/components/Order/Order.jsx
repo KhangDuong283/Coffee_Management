@@ -123,9 +123,13 @@ export default function Order() {
     const bills_data = bills ? bills : [];
 
     const handleOrder = () => {
+        // Vì không thể lấy được bill_id từ database ngay sau khi tạo bill (để tạo bảng chi tiết hóa đơn) 
+        // nên phải tự tạo một bill_id ở FE (bug này cần fix lại)
+        // Đặt bill_id ban đầu để trường hợp bills_data rỗng không thể reduce được
         let newBillId = "OD001";
 
         if (bills_data && bills_data.length > 0) {
+            // Nếu có dữ liệu bills_data thì tìm ra bill_id lớn nhất
             const maxBillId = bills_data?.reduce((max, item) => {
                 return max > item.bill_id ? max : item.bill_id;
             }, '');
@@ -136,7 +140,7 @@ export default function Order() {
             // Tăng phần số lên 1
             const newNumberPart = numberPart + 1;
 
-            // Định dạng lại phần số để có đủ 3 chữ số
+            // Định dạng lại phần số để có đủ 3 chữ số (paddStart dùng để tự động thêm số 0 vào trước phần số cho đủ 3 chữ số)
             const formattedNumberPart = newNumberPart.toString().padStart(3, '0');
 
             // Nối lại với phần chữ để tạo newBillId mới
@@ -145,27 +149,26 @@ export default function Order() {
         }
 
         console.log(newBillId);
-        // Tạo một bill mới
+        // Tạo một bill mới (bây giờ đã biết trước bill_id)
         const newBill = {
-
             bill_id: newBillId,
             branch_id: branch_id,
             employee_id: selectedEmployee,
         }
 
-
-        // Gửi bill mới lên server
+        // Khi có sản phẩm trong cart thì mới thực hiện order
         if (sub_total !== 0) {
+            // Gửi bill mới lên server
             createBill(newBill);
 
-
-            // Thêm thông tin từng sản phẩm vào BillProduct
+            // Thêm thông tin từng sản phẩm vào chi tiết hóa đơn
             updatedCart.map((product) => {
 
                 // lấy size
                 var size = product.product_current_size == 0 ? "S" :
                     product.product_current_size == 1 ? "M" :
                         product.product_current_size == 2 ? "L" : null;
+
                 // lấy giá
                 var price = size == "S" ? product.product_price_s :
                     size == "M" ? product.product_price_m :
@@ -184,8 +187,9 @@ export default function Order() {
                     billproduct_quantity: product.product_quantity,
                 }
 
+                // Tạo chi tiết hóa đơn mới
                 createBillProduct(newBillProduct);
-                toast.info("newBillProduct successfully!!")
+                // toast.info("newBillProduct successfully!!")
 
             });
 

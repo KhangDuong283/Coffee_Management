@@ -1,8 +1,10 @@
 import "./Header.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import useReadAdmin from "../../components/Auth/Register/hooks/useReadAdmin";
+import useReadBranch from "../../components/Branch/BranchList/hooks/useReadBranch";
+import { useDispatch } from 'react-redux';
+import { selectBranch } from "./branchSlice";
 
 export default function Header() {
 
@@ -27,18 +29,25 @@ export default function Header() {
   const admin = admins ? admins.find(admin => admin.admin_username === username) : null;
   const id = admin ? admin.admin_id : null;
 
+  const { branches } = useReadBranch();
+  const branch_data = branches ? branches : [];
 
+  const dispatch = useDispatch();
+
+  const handleSelectBranch = (event) => {
+    dispatch(selectBranch(event.target.value));
+  }
 
 
   return (
     <div className="right-section">
       <div className="header">
 
-        <select className="form-select form-select-lg select" aria-label="Large select example">
-          <option selected>All branch</option>
-          <option value={1}>One</option>
-          <option value={2}>Two</option>
-          <option value={3}>Three</option>
+        <select className="form-select form-select-lg select" aria-label="Large select example" onChange={handleSelectBranch}>
+          <option selected value="">All branch</option>
+          {branch_data.map((branch, index) => (
+            <option key={index} value={branch.branch_id}>{branch.branch_name}</option>
+          ))}
         </select>
 
 
@@ -70,6 +79,6 @@ export default function Header() {
         </div>
 
       </div>
-    </div>
+    </div >
   )
 }

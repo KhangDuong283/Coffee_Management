@@ -11,7 +11,8 @@ const cartSlice = createSlice({
         },
         removeFromCart: (state, action) => {
             // Tìm vị trí đầu tiên của sản phẩm có id và size cụ thể trong state
-            const index = state.findIndex((product) => product.product_id === action.payload.product_id && product.product_current_size === action.payload.product_current_size);
+            const index = state.findIndex((product) => product.product_id === action.payload.product_id
+                && product.product_current_size === action.payload.product_current_size);
 
             // Nếu tìm thấy sản phẩm, xóa nó khỏi state
             if (index !== -1) {
