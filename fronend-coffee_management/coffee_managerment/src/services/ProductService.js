@@ -9,12 +9,15 @@ class ProductService {
     }
 
     async create(newProduct) {
-        return (await axios.post(`${BASE_API_URL}/products`, newProduct)).data;
+        const status = (await axios.post(`${BASE_API_URL}/products`, newProduct)).data;
+        console.log(status);
+
     }
 
     async update(productId, updatedProduct) {
 
-        return (await axios.put(`${BASE_API_URL}/products/${productId}`, updatedProduct)).data;
+        const status = (await axios.post(`${BASE_API_URL}/products/${productId}`, updatedProduct)).data;
+        console.log(status);
     }
     async delete(productId) {
         return (await axios.delete(`${BASE_API_URL}/products/${productId}`)).data;

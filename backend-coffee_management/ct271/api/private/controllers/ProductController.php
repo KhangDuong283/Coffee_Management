@@ -37,6 +37,22 @@ class ProductController extends Controller
         $data['product_cost_l'] = $product_data['product_cost_l'];
         $data['product_current_size'] = 0;
 
+        // Check if image was uploaded
+        if (isset($product_data['product_img']) && $product_data['product_img']['error'] == 0) {
+            $target_dir = "./uploads/";
+            $filename = basename($product_data["product_img"]["name"]);
+            $target_file = $target_dir . $filename;
+
+            // Move the uploaded file to your target directory
+            if (move_uploaded_file($product_data["product_img"]["tmp_name"], $target_file)) {
+                // Save the path to the image in your database
+                $data['product_img'] = $filename;
+            } else {
+                echo json_encode(['message' => 'Error uploading image']);
+                return;
+            }
+        }
+
         $result = $product->insert($data);
         if (!$result) {
             echo json_encode(['message' => 'Product created successfully']);
@@ -57,6 +73,22 @@ class ProductController extends Controller
         $data['product_cost_m'] = $product_data['product_cost_m'];
         $data['product_cost_l'] = $product_data['product_cost_l'];
 
+        // Check if image was uploaded
+        if (isset($product_data['product_img']) && $product_data['product_img']['error'] == 0) {
+            $target_dir = "./uploads/";
+            $filename = basename($product_data["product_img"]["name"]);
+            $target_file = $target_dir . $filename;
+
+            // Move the uploaded file to your target directory
+            if (move_uploaded_file($product_data["product_img"]["tmp_name"], $target_file)) {
+                // Save the path to the image in your database
+                $data['product_img'] = $filename;
+            } else {
+                echo json_encode(['message' => 'Error uploading image']);
+                return;
+            }
+        }
+        
         $result = $product->update($data, 'product_id = ' . "'$id'");
         if ($result) {
             return json_encode(['message' => 'Product updated successfully']);

@@ -11,7 +11,7 @@ export default function useUpdateProduct() {
     const { mutate: updateProduct, isPending: isUpdate } = useMutation({
         mutationFn: ({ product_id, new_product }) => productService.update(product_id, new_product),
         onSuccess: () => {
-            toast.success("Update product successfully!!");
+            // toast.success("Update product successfully!!");
 
             // Sau khi tạo tài khoản thành công, đánh dấu truy vấn 'branches' là không hợp lệ để làm mới dữ liệu
             queryClient.invalidateQueries('branches');

@@ -132,6 +132,10 @@ class App
         $endpoint = isset($param[0]) ? $param[0] : null;
         $id = isset($param[1]) ? $param[1] : null;
 
+        if ($method == "POST" && isset($endpoint)) {
+            $method = "update";
+        }
+
         switch ($method) {
             case "GET":
                 if ($endpoint == "count") {
@@ -142,11 +146,23 @@ class App
                     return $product->read();
                 }
             case "POST":
-                $data = json_decode(file_get_contents('php://input'), true);
+                $data = $_POST;
+                if (isset($_FILES['product_img'])) {
+                    $data['product_img'] = $_FILES['product_img'];
+                } else {
+                    $data['product_img'] = null;
+                }
+
                 return $product->create($data);
-            case "PUT":
+            case "update":
                 if (isset($endpoint)) {
-                    $data = json_decode(file_get_contents('php://input'), true);
+                    $data = $_POST;
+                    if (isset($_FILES['product_img'])) {
+                        $data['product_img'] = $_FILES['product_img'];
+                    } else {
+                        $data['product_img'] = null;
+                    }
+
                     return $product->update($data, $endpoint);
                 }
             case "DELETE":

@@ -41,7 +41,7 @@ export default function ProductList() {
 
     // Lấy tên branch từ branch_id
     const { products, error } = useReadProduct();
-    const product_data = products;
+    const product_data = products ? products : null;
 
 
     const navigate = useNavigate();
@@ -63,10 +63,22 @@ export default function ProductList() {
     }
 
     const { updateProduct, isUpdate } = useUpdateProduct();
+
     const handleAddMenu = (product) => {
-        product.product_active = !product.product_active;
-        updateProduct({ product_id: product.product_id, new_product: product });
-        if (product.product_active) {
+        console.log(product.product_active);
+        const formData = new FormData();
+        const active = product.product_active === 0 ? 1 : 0;
+        formData.append("product_name", product.product_name);
+        formData.append("product_active", active);
+        formData.append("product_price_s", product.product_price_s);
+        formData.append("product_cost_s", product.product_cost_s);
+        formData.append("product_price_m", product.product_price_m);
+        formData.append("product_cost_m", product.product_cost_m);
+        formData.append("product_price_l", product.product_price_l);
+        formData.append("product_cost_l", product.product_cost_l);
+        formData.append("product_img", product.product_img[0]);
+        updateProduct({ product_id: product.product_id, new_product: formData });
+        if (product.product_active === 0) {
             toast.success("Add to menu successfully!!");
         } else {
             toast.success("Remove from menu successfully!!");
@@ -81,6 +93,7 @@ export default function ProductList() {
             <thead>
                 <tr>
                     <th>Product id</th>
+                    <th>Product image</th>
                     <th>Product name</th>
                     <th>Set on menu</th>
                     <th>
@@ -103,6 +116,16 @@ export default function ProductList() {
                             data-bs-toggle={clickCount === 1 ? "modal" : null} data-bs-target={"#productListModal" + product.product_id}
                         >
                             <td className="name" >{product.product_id}</td>
+                            <td className="image" style={{ width: "18vw" }}>
+                                <img
+                                    src={product.product_img == "" ?
+                                        "http://nienluan.localhost/uploads/productRoot.png"
+                                        : "http://nienluan.localhost/uploads/" + product.product_img}
+                                    alt="product_image"
+                                    style={{ width: "50px", height: "50px", borderRadius: "50%"}}
+                                />
+                            </td>
+
                             <td className="name">{product.product_name}</td>
                             <td className="more">
                                 {product.product_active === 1 ?
