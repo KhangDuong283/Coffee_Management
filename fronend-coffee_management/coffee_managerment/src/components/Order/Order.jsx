@@ -102,14 +102,17 @@ export default function Order() {
     const branch_id = localStorage?.getItem('branch_id');
 
     const { branches } = useReadBranch();
+    const branch_data = branches ? branches : null
+
     // lấy thông tin của branch cùng với branch id đươc lưu trong localStorage
-    const this_branch = branches?.find(branch => branch.branch_id == branch_id);
+    const this_branch = branch_data?.find(branch => branch.branch_id == branch_id);
 
     // Lấy danh sách nhân viên từ database
     const { employees } = useReadEmployee();
+    const employee_data = employees ? employees : null
 
     // Lấy danh sách nhân viên có employee_position là Casier trong this_branch
-    const casiers_employee = employees?.filter(employee => employee.branch_id == branch_id && employee.employee_position == "Cashier");
+    const casiers_employee = employee_data?.filter(employee => employee.branch_id == branch_id && employee.employee_position == "Cashier");
 
     // Lấy nhân viên được chọn ở option
     const [selectedEmployee, setSelectedEmployee] = useState("");

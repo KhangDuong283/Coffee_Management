@@ -28,7 +28,7 @@ export default function Bill() {
     // Thông tin các nhân viên thu ngân của chi nhánh
     const employees = location?.state.employees;
     // Tìm thông tin của nhân viên thực hiện in hóa đơn
-    const employee = employees.find(employee => employee.employee_id === employee_id);
+    const employee = employees?.find(employee => employee.employee_id === employee_id);
 
     // ngày lập hóa đơn 
     const day = moment(bill?.order_datetime).format('DD/MM/YYYY');
@@ -36,7 +36,7 @@ export default function Bill() {
     const time = moment(bill?.order_datetime).format('HH:mm:ss');
 
     // tổng tiền của cart
-    const total_cart = cart.reduce((acc, item) => {
+    const total_cart = cart?.reduce((acc, item) => {
         const { product_current_size, product_quantity, product_price_s, product_price_m, product_price_l } = item;
         const price = product_current_size === 0 ? (product_price_s) :
             product_current_size === 1 ? (product_price_m) : (product_price_l);
