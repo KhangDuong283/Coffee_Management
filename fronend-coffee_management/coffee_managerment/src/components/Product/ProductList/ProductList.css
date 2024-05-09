@@ -99,6 +99,8 @@
   
   .main .product__list tbody .branch__modal th {
     width: 10% !important;
+    vertical-align: middle;
+    text-align: center;
   }
   
   .main .product__list tbody .branch__modal td {

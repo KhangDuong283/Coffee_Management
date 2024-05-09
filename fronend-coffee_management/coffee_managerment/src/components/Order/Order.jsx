@@ -19,8 +19,8 @@ export default function Order() {
     const cart = useSelector(state => state.cart);
 
     // đếm số lượng của mỗi sản phẩm
-    const cartWithQuantity = cart.map(product => {
-        const quantity = cart.filter(p => p.product_id === product.product_id
+    const cartWithQuantity = cart?.map(product => {
+        const quantity = cart?.filter(p => p.product_id === product.product_id
             && p.product_current_size === product.product_current_size).length;
         return { ...product, product_quantity: quantity };
     });
@@ -31,9 +31,9 @@ export default function Order() {
     // **************************************************************************************************
     // **************************************************************************************************
     // filter duyệt lần lượt qua các sản phẩm trong cart
-    const updatedCart = cartWithQuantity.filter((product, index) => {
+    const updatedCart = cartWithQuantity?.filter((product, index) => {
         // chỉ giữ lại phần từ có index trùng với index hiện tại 
-        const status = cartWithQuantity.findIndex(p => p.product_id === product.product_id
+        const status = cartWithQuantity?.findIndex(p => p.product_id === product.product_id
             && p.product_current_size === product.product_current_size) === index;
 
         return status
@@ -47,7 +47,7 @@ export default function Order() {
     }
 
     // Phí tạm tính
-    const sub_total = updatedCart.reduce((total, product) => {
+    const sub_total = updatedCart?.reduce((total, product) => {
         return total +
             (product.product_current_size == 0 ? Number(product.product_price_s) * product.product_quantity
                 : product.product_current_size == 1 ? Number(product.product_price_m) * product.product_quantity
@@ -61,7 +61,7 @@ export default function Order() {
     const total = sub_total + vat;
 
     // Lãi tạm tính
-    const sub_profit = updatedCart.reduce((total, product) => {
+    const sub_profit = updatedCart?.reduce((total, product) => {
         return total +
             (product.product_current_size == 0 ? Number(product.product_price_s - product.product_cost_s) * product.product_quantity
                 : product.product_current_size == 1 ? Number(product.product_price_m - product.product_cost_m) * product.product_quantity
@@ -99,7 +99,7 @@ export default function Order() {
     }
 
     // lấy dữ liệu branch_id từ localStorage đữ lưu khi login
-    const branch_id = localStorage.getItem('branch_id');
+    const branch_id = localStorage?.getItem('branch_id');
 
     const { branches } = useReadBranch();
     // lấy thông tin của branch cùng với branch id đươc lưu trong localStorage
@@ -145,10 +145,8 @@ export default function Order() {
 
             // Nối lại với phần chữ để tạo newBillId mới
             newBillId = "OD" + formattedNumberPart;
-            console.log(newBillId);
         }
 
-        console.log(newBillId);
         // Tạo một bill mới (bây giờ đã biết trước bill_id)
         const newBill = {
             bill_id: newBillId,
@@ -162,7 +160,8 @@ export default function Order() {
             createBill(newBill);
 
             // Thêm thông tin từng sản phẩm vào chi tiết hóa đơn
-            updatedCart.map((product) => {
+            // console.log("Cart", updatedCart)
+            updatedCart?.map((product) => {
 
                 // lấy size
                 var size = product.product_current_size == 0 ? "S" :
@@ -229,7 +228,12 @@ export default function Order() {
             <div className="order__content-item w-100 d-flex flex-column align-items-center">
                 {updatedCart?.map((product, index) => (
                     <div className="order__item m-2 text-center d-flex" key={index}>
-                        <img className="product__img" src="https://cdn.tgdd.vn/Files/2020/04/08/1247674/ca-phe-espresso-cappuccino-hay-macchiato-khac-nhau-nhu-the-nao-202004081936305660.jpg" alt={product.product_name} />
+                        <img className="product__img"
+                            src={
+                                product.product_img === "" ? "http://nienluan.localhost/uploads/productRoot.png" :
+                                    "http://nienluan.localhost/uploads/" + product.product_img
+                            }
+                            alt={product.product_name} />
                         <span>
                             <div className="product__name">
 

@@ -10,15 +10,15 @@ export default function MenuList() {
 
     // Lấy tên branch từ branch_id
     const { products, error } = useReadProduct();
-
+    const product_data = products ? products : null;
 
     const [productData, setProductData] = useState([]);
 
     useEffect(() => {
         // Lọc ra những sản phẩm có product_active là true
-        const updatedProductData = products?.filter(product => product.product_active) || [];
+        const updatedProductData = product_data?.filter(product => product.product_active) || [];
         setProductData(updatedProductData);
-    }, [products]);
+    }, [product_data]);
 
 
     // Hàm xử lý khi chọn size 
@@ -68,7 +68,10 @@ export default function MenuList() {
                 <div className="menu__item col-2" key={product.product_id}>
                     <div className="card" style={{ width: '100%' }}>
                         <img style={{ height: "20vh", objectFit: "cover" }}
-                            src="https://cdn.tgdd.vn/Files/2020/04/08/1247674/ca-phe-espresso-cappuccino-hay-macchiato-khac-nhau-nhu-the-nao-202004081936305660.jpg"
+                            src={
+                                product.product_img === "" ? "http://nienluan.localhost/uploads/productRoot.png" :
+                                "http://nienluan.localhost/uploads/" + product.product_img
+                            }
                             className="card-img-top" alt={product.product_name} />
                         <div className="card-body mx-1 p-0">
                             <p className="card-text text-center fw-bold mb-0 name">{product.product_name}</p>

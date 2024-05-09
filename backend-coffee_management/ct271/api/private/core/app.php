@@ -225,11 +225,11 @@ class App
             case "PUT":
                 if (isset($endpoint)) {
                     $data = json_decode(file_get_contents('php://input'), true);
-                    return $billproduct->update($data, $endpoint);
+                    // return $billproduct->update($data, $endpoint);
                 }
             case "DELETE":
                 if (isset($endpoint)) {
-                    return $billproduct->delete($endpoint);
+                    // return $billproduct->delete($endpoint);
                 }
         }
     }

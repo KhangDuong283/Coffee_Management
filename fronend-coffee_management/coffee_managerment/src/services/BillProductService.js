@@ -11,6 +11,7 @@ class BillProductService {
     // Hàm lấy thông tin tất cả tài khoản admin
     async read() {
         return (await axios.get(`${BASE_API_URL}/billproducts`)).data;
+        
     }
 
 }

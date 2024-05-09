@@ -16,9 +16,9 @@ function Dashboard() {
         {/* Dashboard content */}
         <h3 className='separator'>Overview</h3>
         <QuickAccess />
-        <h3 className='separator'>Profit branch chart</h3>
+        <h3 className='separator'>Profit branch linechart</h3>
         <LineChartComponent />
-        <h3 className='separator'>Profit branch chart</h3>
+        <h3 className='separator'>Profit branch barchart</h3>
         <BarChartComponent />
       </div>
     </div>

@@ -1,23 +1,16 @@
-import { Outlet, useNavigate } from 'react-router-dom'
-
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Login from '../components/Auth/Login/Login';
 
-
-
 export default function Management() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const isLoggedIn = localStorage.getItem('auth') === 'true';
 
-    // Hàm kiểm tra trạng thái đăng nhập
-    const checkLogin = () => {
-        // Kiểm tra trạng thái đăng nhập trong localStorage
-        const localStorageAuth = localStorage.getItem('auth') === 'true';
-        return localStorageAuth;
-    }
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate("/management/admin_login");
+        }
+    }, [isLoggedIn, navigate]);
 
-    if (checkLogin()) {
-        return (<Outlet />)
-    } else {
-        navigate("/management/admin_login")
-        return (<Login />)
-    }
+    return isLoggedIn ? <Outlet /> : <Login />;
 }

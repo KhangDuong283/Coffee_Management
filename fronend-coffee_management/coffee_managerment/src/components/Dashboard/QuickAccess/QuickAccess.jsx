@@ -22,6 +22,7 @@ export default function QuickAccess() {
 
     // đếm số lượng sản phẩm bán ra
     const { billproducts } = useReadBillProduct();
+    
     // Chỉ lấy các billproduct có bill_id trùng với bill_id đã lấy ở trên
     // include kiểm tra xem mảng có thõa đk không (T/F)
     // Nếu bill_id của bảng chi tiết hóa đơn có trong mảng bill_id thì lấy ra
