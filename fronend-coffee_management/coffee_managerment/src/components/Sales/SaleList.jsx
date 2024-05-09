@@ -5,6 +5,7 @@ import useReadBill from "../Order/hooks/useReadBill";
 import useReadBranch from "../Branch/BranchList/hooks/useReadBranch";
 import moment from 'moment';
 import useReadProduct from "../Product/ProductList/hooks/useReadProduct";
+import useReadEmployee from "../Employee/EmployeeList/hooks/useReadEmployee";
 
 export default function SaleList() {
     // *******************************Chọn dòng*********************************************
@@ -43,7 +44,7 @@ export default function SaleList() {
 
     // Tính tổng tiền của hóa đơn
     const totalBill = (bill_id) => {
-        const total = billProduct_data.filter(billProduct => billProduct.bill_id === bill_id)
+        const total = billProduct_data?.filter(billProduct => billProduct.bill_id === bill_id)
             .reduce((total, billProduct) => total + billProduct.billproduct_price * billProduct.billproduct_quantity, 0);
         return total;
     }
@@ -51,7 +52,7 @@ export default function SaleList() {
 
     // Tính tổng số sản phẩm của hóa đơn
     const totalProduct = (bill_id) => {
-        const total_product = billProduct_data.filter(billProduct => billProduct.bill_id === bill_id)
+        const total_product = billProduct_data?.filter(billProduct => billProduct.bill_id === bill_id)
         return total_product.length;
     }
 
@@ -72,7 +73,7 @@ export default function SaleList() {
 
     // Tạo mảng các đối tượng sản phẩm từ id hóa đơn
     const product_list = (bill_id) => {
-        const product_list = billProduct_data.filter(billProduct => billProduct.bill_id === bill_id);
+        const product_list = billProduct_data?.filter(billProduct => billProduct.bill_id === bill_id);
         return product_list;
     }
 
@@ -92,13 +93,24 @@ export default function SaleList() {
 
     const getBranchName = (branch_id) => {
         if (branch_data) {
-            const branch = branch_data.find(b => b.branch_id === branch_id);
+            const branch = branch_data?.find(b => b.branch_id === branch_id);
             if (branch) {
                 return branch.branch_name;
             }
         }
         return "";
     }
+    const { employees } = useReadEmployee();
+    const employee_data = employees ? employees : null;
+
+    // trả về tên nhân viên có id tương ứng
+    const getEmployeeName = (employee_id) => {
+        const employee = employee_data?.find(e => e.employee_id === employee_id);
+        if (employee) {
+            return employee.employee_name;
+        }
+    }
+
 
     return (
         <table className="employee__list">
@@ -108,7 +120,7 @@ export default function SaleList() {
                     <th>Branch name</th>
                     <th>Total bill</th>
                     <th>Total product</th>
-                    <th>Invoicing time</th>v
+                    <th>Invoicing time</th>
                 </tr>
             </thead>
             <tbody>
@@ -157,6 +169,10 @@ export default function SaleList() {
                                                         <tr>
                                                             <th>Total bill</th>
                                                             <td>{totalBill(bill.bill_id).toLocaleString()} VNĐ</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Invoicing staff</th>
+                                                            <td>{getEmployeeName(bill.employee_id)}</td>
                                                         </tr>
                                                         <tr>
                                                             <th></th>

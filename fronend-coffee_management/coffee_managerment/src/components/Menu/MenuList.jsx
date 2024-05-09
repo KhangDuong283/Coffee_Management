@@ -74,7 +74,7 @@ export default function MenuList() {
                             }
                             className="card-img-top" alt={product.product_name} />
                         <div className="card-body mx-1 p-0">
-                            <p className="card-text text-center fw-bold mb-0 name">{product.product_name}</p>
+                            <p className="card-text text-center fw-bold mb-0 name mt-3">{product.product_name}</p>
                             <p className="text-center p-0 m-0 fst-italic price">
                                 {product.product_current_size == 0 ? Number(product.product_price_s).toLocaleString() : null}
                                 {product.product_current_size == 1 ? Number(product.product_price_m).toLocaleString() : null}
