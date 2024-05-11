@@ -14,7 +14,7 @@ export default function useUpdateProduct() {
             // toast.success("Update product successfully!!");
 
             // Sau khi tạo tài khoản thành công, đánh dấu truy vấn 'branches' là không hợp lệ để làm mới dữ liệu
-            queryClient.invalidateQueries('branches');
+            queryClient.invalidateQueries('products');
         },
         onError: () => {
             toast.error("Update product failed!!");

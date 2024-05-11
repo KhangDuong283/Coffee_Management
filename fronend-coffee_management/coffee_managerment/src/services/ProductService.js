@@ -20,7 +20,8 @@ class ProductService {
         
     }
     async delete(productId) {
-        return (await axios.delete(`${BASE_API_URL}/products/${productId}`)).data;
+        const status = (await axios.delete(`${BASE_API_URL}/products/${productId}`)).data;
+        console.log(status);
     }
 
     async count() {
