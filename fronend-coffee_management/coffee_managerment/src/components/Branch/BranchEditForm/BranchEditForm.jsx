@@ -192,8 +192,12 @@ export default function BranchEditForm() {
                     </div>
 
                 )}
+                {changePassword === false ? (
+                    <button type="button" className="btn btn-primary me-3 mt-4" onClick={handleShowInput}>Change password</button>
+                ) : (
+                    <button type="button" className="btn btn-info me-3 mt-4 " onClick={handleShowInput}>Close change password</button>
+                )}
 
-                <button type="button" className="btn btn-info me-3 mt-4 " onClick={handleShowInput}>Close change password</button>
                 <button onClick={handleCancel} type="button" className="btn btn-danger me-3 mt-4">Cancel</button>
                 <button type="submit" className="btn btn-success">{textBtn}</button>
             </form >

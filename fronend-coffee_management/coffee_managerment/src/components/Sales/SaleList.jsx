@@ -46,14 +46,15 @@ export default function SaleList() {
     const totalBill = (bill_id) => {
         const total = billProduct_data?.filter(billProduct => billProduct.bill_id === bill_id)
             .reduce((total, billProduct) => total + billProduct.billproduct_price * billProduct.billproduct_quantity, 0);
-        return total;
+        return Number(total).toLocaleString() + " VNĐ";
     }
 
 
     // Tính tổng số sản phẩm của hóa đơn
     const totalProduct = (bill_id) => {
         const total_product = billProduct_data?.filter(billProduct => billProduct.bill_id === bill_id)
-        return total_product.length;
+        const total = total_product ? total_product : [];
+        return total.length;
     }
 
     // Lấy thông tin sản phẩm
@@ -74,7 +75,8 @@ export default function SaleList() {
     // Tạo mảng các đối tượng sản phẩm từ id hóa đơn
     const product_list = (bill_id) => {
         const product_list = billProduct_data?.filter(billProduct => billProduct.bill_id === bill_id);
-        return product_list;
+        const data = product_list ? product_list : [];
+        return data;
     }
 
     // Lấy size sản phẩm
@@ -138,7 +140,7 @@ export default function SaleList() {
                         >
                             <td className="name" >{bill.bill_id}</td>
                             <td className="name">{getBranchName(bill.branch_id)}</td>
-                            <td className="more">{totalBill(bill.bill_id).toLocaleString()}</td>
+                            <td className="more">{totalBill(bill.bill_id)}</td>
                             <td className="more">{totalProduct(bill.bill_id)}</td>
                             <td className="more">{moment(bill.bill_datetime).format('DD/MM/YYYY')}</td>
 
@@ -168,7 +170,7 @@ export default function SaleList() {
                                                         </tr>
                                                         <tr>
                                                             <th>Total bill</th>
-                                                            <td>{totalBill(bill.bill_id).toLocaleString()} VNĐ</td>
+                                                            <td>{totalBill(bill.bill_id)}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Invoicing staff</th>
@@ -178,7 +180,7 @@ export default function SaleList() {
                                                             <th></th>
                                                             <td className="fw-bold">- - - - - Product List - - - - -</td>
                                                         </tr>
-                                                        {product_list(bill.bill_id).map((product, index) => (
+                                                        {product_list(bill.bill_id)?.map((product, index) => (
                                                             <tr key={index}>
                                                                 <th>{getProductName(product.product_id)}</th>
                                                                 <td>
